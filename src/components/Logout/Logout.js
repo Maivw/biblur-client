@@ -14,7 +14,7 @@ function Logout() {
 	};
 	return (
 		<div>
-			<LogoutOutlined onClick={onLogout} />
+			<LogoutOutlined onClick={onLogout} /> Logout
 		</div>
 	);
 }
