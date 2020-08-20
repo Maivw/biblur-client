@@ -16,8 +16,10 @@ export const login = (params) => async (dispatch) => {
 	dispatch(setUser(result.data.user));
 };
 export const signup = (params) => async (dispatch) => {
+	console.log("OOOOOOO", params);
 	const result = await axios.post("/users", params);
 	dispatch(setToken(result.data.token));
+	dispatch(setUser(result.data.user));
 };
 
 export const logout = (params) => async (dispatch) => {

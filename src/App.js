@@ -4,6 +4,8 @@ import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Logout from "./components/Logout/Logout";
 import Signup from "./components/Signup/Signup";
+import GetSinglePost from "./components/Post/GetSinglePost";
+import GetAllPosts from "./components/Post/GetAllPosts";
 
 import { Button } from "antd";
 
@@ -16,6 +18,8 @@ function App() {
 					<Route exact path="/signup" component={Signup} />
 					<Route exact path="/logout" component={Logout} />
 					<Route exact path="/" component={Home} />
+					<Route exact path="/dashboard" component={GetAllPosts} />
+					<Route exact path="/dashboard/:id" component={GetSinglePost} />
 				</Switch>
 			</BrowserRouter>
 		</>

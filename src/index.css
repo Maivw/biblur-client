@@ -1,2 +1,6 @@
 /* TODO Add site wide styles */
 @import "~antd/dist/antd.css";
+
+#root {
+	height: 100vh;
+}

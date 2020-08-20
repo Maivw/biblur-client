@@ -20,6 +20,7 @@ function Signup() {
 	};
 	const onSignUp = (e) => {
 		e.preventDefault();
+		console.log("UUUU", signUpFields);
 		dispatch(signup(signUpFields));
 	};
 
@@ -29,86 +30,40 @@ function Signup() {
 	return (
 		<div>
 			<Form>
-				<Form.Item
+				<Input
 					name="username"
 					label="User Name"
 					value={signUpFields.username}
 					onChange={onChangeSignUpFields}
-					rules={[
-						{
-							required: true,
-							message: "Please input your Username!",
-						},
-					]}
-				>
-					<Input />
-				</Form.Item>
-				<Form.Item
+					placeholder="username"
+				/>
+				<Input
 					name="email"
 					label="E-mail"
 					value={signUpFields.email}
 					onChange={onChangeSignUpFields}
-					rules={[
-						{
-							type: "email",
-							message: "The input is not valid E-mail!",
-						},
-						{
-							required: true,
-							message: "Please input your E-mail!",
-						},
-					]}
-				>
-					<Input />
-				</Form.Item>
+					placeholder="email"
+				/>
 
-				<Form.Item
+				<Input
 					name="password"
 					label="Password"
 					value={signUpFields.password}
 					onChange={onChangeSignUpFields}
-					rules={[
-						{
-							required: true,
-							message: "Please input your password!",
-						},
-					]}
-					hasFeedback
-				>
-					<Input.Password />
-				</Form.Item>
+					placeholder="password"
+				/>
 
-				<Form.Item
+				<Input
 					name="confirmPassword"
 					label="Confirm Password"
 					value={signUpFields.confirmPassword}
 					onChange={onChangeSignUpFields}
-					dependencies={["password"]}
-					hasFeedback
-					rules={[
-						{
-							required: true,
-							message: "Please confirm your password!",
-						},
-						({ getFieldValue }) => ({
-							validator(rule, value) {
-								if (!value || getFieldValue("password") === value) {
-									return Promise.resolve();
-								}
-								return Promise.reject(
-									"The two passwords that you entered do not match!"
-								);
-							},
-						}),
-					]}
-				>
-					<Input.Password />
-				</Form.Item>
-				<Form.Item>
-					<Button type="primary" htmlType="submit" onClick={onSignUp}>
-						Register
-					</Button>
-				</Form.Item>
+					placeholder="Confirm password"
+				/>
+
+				<button type="primary" onClick={onSignUp}>
+					Register
+				</button>
 			</Form>
 		</div>
 	);

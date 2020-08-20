@@ -6,17 +6,33 @@ const DELETE_A_POST = "DELETE_A_POST";
 const EDIT_A_POST = "EDIT_A_POST";
 
 export const displayAllPosts = (posts) => ({ type: DISPLAY_ALL_POSTS, posts });
-export const displayAPost = (post) => ({ type: SINGLE_POST, post });
+export const displayAPost = (currentPost) => ({
+	type: SINGLE_POST,
+	currentPost,
+});
 export const createAPost = (post) => ({ type: CREATE_NEW_POST, post });
+export const deleteAPost = (post) => ({ type: DELETE_A_POST, post });
 
 export const getAllPosts = (params) => async (dispatch) => {
 	const result = await axios.get("/posts", params);
-	console.log("GGGGG", result.data.posts);
 	dispatch(displayAllPosts(result.data.posts));
+};
+export const getAPost = (params) => async (dispatch) => {
+	const result = await axios.get(`/posts/${params.id}`, params);
+	dispatch(displayAPost(result.data.post));
 };
 export const createANewPost = (params) => async (dispatch) => {
 	const result = await axios.post("/posts", params);
-	dispatch(displayAllPosts());
+
+	dispatch(createAPost(result.data.post));
+	// dispatch(displayAllPosts());
+};
+
+export const removeAPost = (params) => async (dispatch) => {
+	console.log("FFFFF", params);
+	const result = await axios.delete(`/posts/${params.id}`, params);
+	console.log("GGGGGGG", result);
+	dispatch(deleteAPost(result.data));
 };
 const initialState = { posts: [] };
 export default function reducer(state = initialState, action) {
@@ -34,16 +50,24 @@ export default function reducer(state = initialState, action) {
 			};
 		}
 		case CREATE_NEW_POST: {
-			console.log(action);
+			console.log("lllll", action.post);
 
 			return {
 				...state,
-				posts: [action.post.post, ...state.posts],
+				posts: [action.post, ...state.posts],
 			};
 		}
 		case DELETE_A_POST: {
+			console.log("HHHHHH", action.post);
+			let newState = state.posts.filter(
+				(post) => Number(post.id) !== Number(action.post.postId)
+			);
+
+			console.log("tggjj", newState);
+
 			return {
-				posts: state.posts.filter((post) => post.id != action.payload.post_id),
+				...state,
+				posts: [...newState],
 			};
 		}
 		// case LIKE_A_POST: {

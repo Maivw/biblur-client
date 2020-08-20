@@ -17,9 +17,7 @@ const persistConfig = {
 	//   'accountReducer'
 	// ],
 	// not persist
-	blacklist: [
-		// "cartManagement"
-	],
+	blacklist: ["postManagement"],
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
