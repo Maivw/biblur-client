@@ -11,7 +11,9 @@ export const setUser = (user) => ({ type: SET_USER, user });
 
 export const login = (params) => async (dispatch) => {
 	const result = await axios.post("/users/login", params);
+	console.log("EEEE", result.data);
 	dispatch(setToken(result.data.token));
+	dispatch(setUser(result.data.user));
 };
 export const signup = (params) => async (dispatch) => {
 	const result = await axios.post("/users", params);
@@ -28,7 +30,7 @@ export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_TOKEN: {
 			return {
-				...state.user,
+				...state,
 				token: action.token,
 			};
 		}
@@ -41,7 +43,7 @@ export default function reducer(state = initialState, action) {
 		}
 		case SET_USER: {
 			return {
-				...state.user,
+				...state,
 				user: action.user,
 			};
 		}

@@ -11,17 +11,20 @@ export const createAPost = (post) => ({ type: CREATE_NEW_POST, post });
 
 export const getAllPosts = (params) => async (dispatch) => {
 	const result = await axios.get("/posts", params);
-	console.log("OOO", result.data);
-	dispatch(displayAllPosts(result.data));
+	console.log("GGGGG", result.data.posts);
+	dispatch(displayAllPosts(result.data.posts));
 };
-
+export const createANewPost = (params) => async (dispatch) => {
+	const result = await axios.post("/posts", params);
+	dispatch(displayAllPosts());
+};
 const initialState = { posts: [] };
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case DISPLAY_ALL_POSTS: {
 			return {
-				...state.posts,
-				posts: action.posts.posts,
+				...state,
+				posts: action.posts,
 			};
 		}
 		case SINGLE_POST: {
@@ -31,13 +34,7 @@ export default function reducer(state = initialState, action) {
 			};
 		}
 		case CREATE_NEW_POST: {
-			// log action: console.log(action)
-			/**
-			 * {
-			 *		type: CREATE_NEW_POST,
-			 *		post: post,
-			 *	}
-			 */
+			console.log(action);
 
 			return {
 				...state,

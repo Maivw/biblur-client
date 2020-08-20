@@ -15,6 +15,7 @@ const tailLayout = {
 
 function Login(props) {
 	const token = useSelector((state) => state.authentication.token);
+	console.log("AAA", token);
 	const dispatch = useDispatch();
 	const [loginFields, setLoginFields] = useState({
 		email: "demo@gmail.com",

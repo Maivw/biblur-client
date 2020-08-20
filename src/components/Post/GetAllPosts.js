@@ -14,19 +14,30 @@ import {
 	YoutubeOutlined,
 } from "@ant-design/icons";
 
+import CreatePostImageFile from "./CreatePostImageFile";
+
 function GetAllPosts(props) {
 	const posts = useSelector((state) => state.postManagement.posts);
-	console.log("KKKK", posts);
+	const [visible, setVisible] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getAllPosts());
 	}, []);
+
+	const onShowModal = (e) => {
+		setVisible(!visible);
+	};
+
+	const onCancel = () => {
+		setVisible(!visible);
+	};
 	return (
 		<div className="app-container">
+			<CreatePostImageFile visible={visible} onCancel={onCancel} />
 			<Row className="mb-6 text-white">
 				Create Post
 				<Col className="text-white" style={{ marginLeft: 30 }}>
-					<PictureOutlined />
+					<PictureOutlined onClick={onShowModal} />
 				</Col>
 				<Col className="text-white" style={{ marginLeft: 30 }}>
 					<EditOutlined />
