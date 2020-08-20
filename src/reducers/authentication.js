@@ -7,9 +7,14 @@ const REMOVE_TOKEN = "REMOVE_TOKEN";
 
 export const setToken = (token) => ({ type: SET_TOKEN, token });
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
+export const setUser = (user) => ({ type: SET_USER, user });
 
 export const login = (params) => async (dispatch) => {
 	const result = await axios.post("/users/login", params);
+	dispatch(setToken(result.data.token));
+};
+export const signup = (params) => async (dispatch) => {
+	const result = await axios.post("/users", params);
 	dispatch(setToken(result.data.token));
 };
 
@@ -34,12 +39,12 @@ export default function reducer(state = initialState, action) {
 			delete newState.token;
 			return newState;
 		}
-		// case SET_USER: {
-		// 	return {
-		// 		...state,
-		// 		user: action.user,
-		// 	};
-		// }
+		case SET_USER: {
+			return {
+				...state.user,
+				user: action.user,
+			};
+		}
 
 		default:
 			return state;
