@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+
 import { createANewPost, getAllPosts } from "../../reducers/postManagement";
-import { Modal, Row, Col, TextArea, Input } from "antd";
-import { PictureOutlined } from "@ant-design/icons";
+import { Modal, Row, Col, Input } from "antd";
 
 function CreatePostImageUrl({ visible, onCancel }) {
 	const dispatch = useDispatch();

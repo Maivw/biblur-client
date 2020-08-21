@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { signup } from "../../reducers/authentication";
-import { Form, Input, Button } from "antd";
+import { Form, Input } from "antd";
 
 function Signup() {
 	const token = useSelector((state) => state.authentication.token);

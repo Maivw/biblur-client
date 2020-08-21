@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+
 import { createANewPost, getAllPosts } from "../../reducers/postManagement";
-import { Modal, Row, Col, TextArea, Input } from "antd";
+import { Modal, Row, Col, Input } from "antd";
 import { PictureOutlined } from "@ant-design/icons";
 
 function CreatePostImageFile({ visible, onCancel }) {
@@ -10,7 +10,6 @@ function CreatePostImageFile({ visible, onCancel }) {
 	const [imageFile, setImageFile] = useState("");
 	const userId = useSelector((state) => state.authentication.user.id);
 	const [file, setFile] = useState("");
-	console.log("CCCC", userId);
 	const [post, setPost] = useState({
 		postContent: "",
 		location: "",

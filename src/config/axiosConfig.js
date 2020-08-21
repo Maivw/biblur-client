@@ -1,5 +1,5 @@
 import { create } from "axios";
-import store from "../store/configureStore";
+// import store from "../store/configureStore";
 
 const api = create({
 	baseURL: "http://localhost:8080",

@@ -12,6 +12,7 @@ export const displayAPost = (currentPost) => ({
 });
 export const createAPost = (post) => ({ type: CREATE_NEW_POST, post });
 export const deleteAPost = (post) => ({ type: DELETE_A_POST, post });
+export const editAPost = (post) => ({ type: EDIT_A_POST, post });
 
 export const getAllPosts = (params) => async (dispatch) => {
 	const result = await axios.get("/posts", params);
@@ -25,13 +26,18 @@ export const createANewPost = (params) => async (dispatch) => {
 	const result = await axios.post("/posts", params);
 
 	dispatch(createAPost(result.data.post));
-	// dispatch(displayAllPosts());
+};
+export const editCurrentPost = (params) => async (dispatch) => {
+	console.log("kkkk", params);
+
+	const result = await axios.put(`/posts/${params.id}`, params);
+	console.log("RES", result.data);
+
+	dispatch(editAPost(result.data.post));
 };
 
 export const removeAPost = (params) => async (dispatch) => {
-	console.log("FFFFF", params);
 	const result = await axios.delete(`/posts/${params.id}`, params);
-	console.log("GGGGGGG", result);
 	dispatch(deleteAPost(result.data));
 };
 const initialState = { posts: [] };
@@ -89,18 +95,19 @@ export default function reducer(state = initialState, action) {
 		// 	return newState;
 		// }
 
-		// case EDIT_A_POST: {
-		// 	return {
-		// 		...state,
-		// 		posts: state.posts.map((post) => {
-		// 			if (post.id == action.payload.id) {
-		// 				return action.payload;
-		// 			}
-		// 			return post;
-		// 		}),
-		// 		post: action.payload,
-		// 	};
-		// }
+		case EDIT_A_POST: {
+			console.log("LLLL", action.post);
+			return {
+				...state,
+				posts: state.posts.map((post) => {
+					if (post.id == action.post.id) {
+						return action.post;
+					}
+					return post;
+				}),
+				// post: action.payload,
+			};
+		}
 
 		default:
 			return state;

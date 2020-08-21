@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { login } from "../../reducers/authentication";
 
-import { Form, Input, Button, Checkbox, Row, Col } from "antd";
+import { Form, Input, Row, Col } from "antd";
 const layout = {
 	labelCol: { span: 8 },
 	wrapperCol: { span: 16 },
-};
-
-const tailLayout = {
-	wrapperCol: { offset: 8, span: 16 },
 };
 
 function Login(props) {

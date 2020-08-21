@@ -4,3 +4,8 @@
 #root {
 	height: 100vh;
 }
+
+.ant-popover-inner {
+	width: 900px;
+	height: 700px;
+}

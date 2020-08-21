@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { LogoutOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 import { logout } from "../../reducers/authentication";

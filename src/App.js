@@ -7,8 +7,6 @@ import Signup from "./components/Signup/Signup";
 import GetSinglePost from "./components/Post/GetSinglePost";
 import GetAllPosts from "./components/Post/GetAllPosts";
 
-import { Button } from "antd";
-
 function App() {
 	return (
 		<>
@@ -19,7 +17,7 @@ function App() {
 					<Route exact path="/logout" component={Logout} />
 					<Route exact path="/" component={Home} />
 					<Route exact path="/dashboard" component={GetAllPosts} />
-					<Route exact path="/dashboard/:id" component={GetSinglePost} />
+					{/* <Route exact path="/dashboard/:id" component={GetSinglePost} /> */}
 				</Switch>
 			</BrowserRouter>
 		</>
