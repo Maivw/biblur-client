@@ -9,7 +9,6 @@ import { PictureOutlined } from "@ant-design/icons";
 
 function EditAPost({ visible, onCancel, id }) {
 	const post = useSelector((state) => state.postManagement.currentPost);
-
 	const userId = useSelector((state) => state.authentication.user.id);
 	const [postEdited, setPostEdited] = useState({
 		postContent: "",
@@ -18,6 +17,8 @@ function EditAPost({ visible, onCancel, id }) {
 		imagePostUrl: "",
 		videoPostUrl: "",
 	});
+	const [file, setFile] = useState("");
+	const [imageFile, setImageFile] = useState("");
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getAPost({ id }));
@@ -70,6 +71,22 @@ function EditAPost({ visible, onCancel, id }) {
 								placeholder={post.imagePostUrl}
 								name="imagePostUrl"
 							/>
+							// <div className="flex justify-around">
+							// 	<label style={{ fontSize: "20px", marginLeft: "80%" }}>
+							// 		<span>
+							// 			<PictureOutlined />
+							// 		</span>
+							// 		<input
+							// 			name="imagePostUrl"
+							// 			type="file"
+							// 			style={{ display: "none" }}
+							// 			value={post.imagePostUrl}
+							// 		/>
+							// 	</label>
+							// 	{file && (
+							// 		<img src={imageFile} alt="img" style={{ height: 50 }} />
+							// 	)}
+							// </div>
 						)}
 						{post.videoPostUrl && (
 							<Row>
@@ -81,7 +98,6 @@ function EditAPost({ visible, onCancel, id }) {
 								/>
 							</Row>
 						)}
-						<PictureOutlined />
 					</Row>
 				</Card>
 			)}

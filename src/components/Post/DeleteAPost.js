@@ -9,7 +9,7 @@ function DeleteAPost({ id }) {
 	const token = useSelector((state) => state.authentication.token);
 	const onDelete = (e) => {
 		e.preventDefault();
-		dispatch(removeAPost({ id }));
+		dispatch(removeAPost({ id, token }));
 	};
 
 	return (
