@@ -39,6 +39,24 @@ export const GetComments = (params) => async (dispatch) => {
 	dispatch(displayAllComments(result.data.comments));
 };
 
+export const DeleteAComment = (params) => async (dispatch) => {
+	console.log("GGGGGGG", params);
+	const result = await axios.delete(
+		`/comments/${params.postId}/${params.commentId}`,
+		params
+	);
+
+	console.log("lll", result.data);
+	dispatch(deleteComment(result.data.comment));
+};
+export const GetAComment = (params) => async (dispatch) => {
+	const result = await axios.get(`/comments/${params.postId}/${params.id}`, {
+		...params,
+	});
+
+	dispatch(displayComment(result.data.comment));
+};
+
 const initialState = {
 	comments: [],
 };
@@ -56,6 +74,21 @@ export default function reducer(state = initialState, action) {
 			return {
 				...state,
 				comments: action.comments,
+			};
+		}
+		case DISPLAY_A_COMMENT: {
+			return {
+				...state,
+				comment: action.comment,
+			};
+		}
+
+		case DELETE_A_COMMENT: {
+			let newState = [...state.comments];
+			newState = newState.filter((comment) => comment.id !== action.comment.id);
+			return {
+				...state,
+				comments: [...newState],
 			};
 		}
 		default:
