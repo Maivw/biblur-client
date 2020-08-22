@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { getAllPosts, repostAPost } from "../../reducers/postManagement";
+import {
+	getAllPosts,
+	repostAPost,
+	LikePost,
+} from "../../reducers/postManagement";
+
 import { Row, Col, Card, Divider } from "antd";
 import moment from "moment";
 import {
@@ -11,6 +16,7 @@ import {
 	PictureOutlined,
 	YoutubeOutlined,
 	ShareAltOutlined,
+	HeartFilled,
 } from "@ant-design/icons";
 import "../../index.css";
 
@@ -19,9 +25,12 @@ import CreatePostImageUrl from "./CreatePostImageUrl";
 import CreatePostVideoUrl from "./CreatePostVideoUrl";
 import EditAPost from "./EditAPost";
 import DeleteAPost from "./DeleteAPost";
+import AllComments from "../Comment/AllComments";
 
 function GetAllPosts(props) {
+	const [collapse, setCollapse] = useState(null);
 	const posts = useSelector((state) => state.postManagement.posts);
+	const user_Id = useSelector((state) => state.authentication.user.id);
 	const [visible, setVisible] = useState(false);
 	const [visibleImageUrl, setVisibleImageUrl] = useState(false);
 	const [visibleVideoUrl, setVisibleVideoUrl] = useState(false);
@@ -62,6 +71,13 @@ function GetAllPosts(props) {
 	};
 	const onRepost = (post) => () => {
 		dispatch(repostAPost(post));
+	};
+	const onLikePost = (post) => () => {
+		dispatch(LikePost({ user_Id, ...post }));
+	};
+
+	const onCollapse = (postId) => () => {
+		collapse ? setCollapse(null) : setCollapse(postId);
 	};
 	return (
 		<div className="app-container">
@@ -156,6 +172,7 @@ function GetAllPosts(props) {
 								<Row>
 									<Col xl={4} md={4} xs={4} className="text-center mt-1">
 										{/* <LikeAPost postId={post.id} /> */}
+										<HeartFilled onClick={onLikePost(post)} />
 										<span style={{ color: "#177ddc" }}>
 											{post.Likes.length}
 											<span style={{ marginLeft: 7 }}>like</span>
@@ -166,7 +183,7 @@ function GetAllPosts(props) {
 										md={4}
 										xs={4}
 										className="text-center mt-1"
-										// onClick={onCollapse(post.id)}
+										onClick={onCollapse(post.id)}
 									>
 										<MessageOutlined />
 									</Col>
@@ -181,7 +198,7 @@ function GetAllPosts(props) {
 									</Col>
 								</Row>
 								<Divider style={{ marginTop: 10, marginBottom: 20 }} />
-								{/* <ShowAllComments postId={post.id} isOpened={collapse} /> */}
+								<AllComments postId={post.id} isOpened={collapse} />
 							</Card>
 						</>
 					);
