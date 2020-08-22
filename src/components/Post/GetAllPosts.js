@@ -116,7 +116,7 @@ function GetAllPosts(props) {
 								style={{ marginBottom: 30 }}
 								key={index}
 							>
-								<Row>
+								<Row key={index}>
 									<Col span={6}>
 										<img
 											src={post.User.imageUrl}

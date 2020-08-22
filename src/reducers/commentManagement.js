@@ -30,14 +30,12 @@ export const displayAllComments = (comments) => ({
 });
 
 export const MakeAComment = (params) => async (dispatch) => {
-	const result = await axios.post(`/posts/${params.id}`, params);
+	const result = await axios.post(`/comments/${params.postId}`, { ...params });
 
-	dispatch(createNewComment(result.data));
+	dispatch(createNewComment(result.data.comment));
 };
 export const GetComments = (params) => async (dispatch) => {
-	console.log("CCCommtent", params);
 	const result = await axios.get(`/comments/${params.postId}`, params);
-	console.log("CC222", result.data.comments);
 	dispatch(displayAllComments(result.data.comments));
 };
 
@@ -48,13 +46,13 @@ const initialState = {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case CREATE_NEW_COMMENT: {
+			console.log("CCCMMFO", action.comment);
 			return {
 				...state,
 				comments: [action.comment, ...state.comments],
 			};
 		}
 		case DISPLAY_ALL_COMMENTS: {
-			console.log("Kgh", action.comments);
 			return {
 				...state,
 				comments: action.comments,

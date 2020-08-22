@@ -17,7 +17,7 @@ const persistConfig = {
 	//   'accountReducer'
 	// ],
 	// not persist
-	blacklist: ["postManagement"],
+	blacklist: ["postManagement", "commentManagement"],
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

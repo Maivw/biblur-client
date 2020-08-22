@@ -15,9 +15,7 @@ export default function AllComments(props) {
 	const dispatch = useDispatch();
 	const userId = useSelector((state) => state.authentication.user.id);
 	const comments = useSelector((state) => state.commentManagement.comments);
-	console.log("Coooo", comments);
 	const { postId, isOpened } = props;
-	console.log("GGG", postId);
 
 	useEffect(() => {
 		if (postId === isOpened) {
@@ -39,7 +37,7 @@ export default function AllComments(props) {
 				{comments &&
 					comments.map((comment) => (
 						<Row>
-							<Col>
+							{/* <Col>
 								<img
 									src={comment.User.imageUrl}
 									alt={comment.User.username}
@@ -50,10 +48,11 @@ export default function AllComments(props) {
 										marginBottom: 10,
 									}}
 								/>
-							</Col>
+							</Col> */}
 							<Col>{comment.commentContent}</Col>
 						</Row>
 					))}
+				<CreateAComment postId={postId} />
 			</Collapse>
 		</div>
 	);
