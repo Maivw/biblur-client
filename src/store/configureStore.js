@@ -6,7 +6,6 @@ import storage from "redux-persist/lib/storage"; // or whatever storage you are 
 import authentication from "../reducers/authentication";
 import postManagement from "../reducers/postManagement";
 import commentManagement from "../reducers/commentManagement";
-import likeManagement from "../reducers/likeManagement";
 import followManagement from "../reducers/followManagement";
 
 const persistConfig = {
@@ -25,7 +24,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducer = combineReducers({
 	authentication,
 	postManagement,
-	likeManagement,
 	commentManagement,
 	followManagement,
 });

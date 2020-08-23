@@ -35,7 +35,6 @@ function GetAllPosts(props) {
 	const [visibleImageUrl, setVisibleImageUrl] = useState(false);
 	const [visibleVideoUrl, setVisibleVideoUrl] = useState(false);
 	const [activePostId, setActivePostId] = useState();
-
 	const [visibleEditPost, setVisibleEditPost] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -109,6 +108,8 @@ function GetAllPosts(props) {
 			</Row>
 			{posts &&
 				posts.map((post, index) => {
+					const likes = post.Likes;
+					const love = post.Likes.filter((l) => l.userId === user_Id)[0];
 					return (
 						<>
 							<Card
@@ -172,7 +173,10 @@ function GetAllPosts(props) {
 								<Row>
 									<Col xl={4} md={4} xs={4} className="text-center mt-1">
 										{/* <LikeAPost postId={post.id} /> */}
-										<HeartFilled onClick={onLikePost(post)} />
+										<HeartFilled
+											onClick={onLikePost(post)}
+											style={{ color: love ? "red" : "black" }}
+										/>
 										<span style={{ color: "#177ddc" }}>
 											{post.Likes.length}
 											<span style={{ marginLeft: 7 }}>like</span>

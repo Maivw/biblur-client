@@ -20,7 +20,6 @@ function Signup() {
 	};
 	const onSignUp = (e) => {
 		e.preventDefault();
-		console.log("UUUU", signUpFields);
 		dispatch(signup(signUpFields));
 	};
 

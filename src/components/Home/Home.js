@@ -16,7 +16,6 @@ const { SubMenu } = Menu;
 function Home() {
 	const [collapsed, setCollapsed] = useState(false);
 	const onCollapse = (collapsed) => {
-		console.log(collapsed);
 		this.setState({ collapsed });
 	};
 	return (

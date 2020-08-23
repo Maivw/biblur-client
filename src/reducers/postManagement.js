@@ -5,13 +5,13 @@ const CREATE_NEW_POST = "CREATE_NEW_POST ";
 const DELETE_A_POST = "DELETE_A_POST";
 const EDIT_A_POST = "EDIT_A_POST";
 const REPOST = "REPOST";
-
 const LIKE_A_POST = "LIKE_A_POST";
-const ALL_LIKES_POST = "ALL_LIKES_POST";
-const ALL_LIKES_COMMENT = "ALL_LIKES_COMMENT ";
 const LIKE_A_COMMENT = "LIKE_A_COMMENT";
+export const likeAComment = (likecomment) => ({
+	type: LIKE_A_COMMENT,
+	likecomment,
+});
 export const likeApost = (post) => ({ type: LIKE_A_POST, post });
-
 export const displayAllPosts = (posts) => ({ type: DISPLAY_ALL_POSTS, posts });
 export const displayAPost = (currentPost) => ({
 	type: SINGLE_POST,
@@ -19,11 +19,20 @@ export const displayAPost = (currentPost) => ({
 });
 export const createAPost = (post) => ({ type: CREATE_NEW_POST, post });
 export const LikePost = (params) => async (dispatch) => {
-	console.log("Pa", params);
 	const result = await axios.post(`/likes/${params.id}`, { ...params });
-	console.log("FFF", result.data);
 
 	dispatch(likeApost(result.data.like));
+};
+export const LikeComment = (params) => async (dispatch) => {
+	const result = await axios.post(
+		`/likes/${params.postId}/${params.commentId}`,
+		{
+			...params,
+		}
+	);
+	console.log("FFF", result.data.like);
+
+	dispatch(likeAComment(result.data.like));
 };
 export const deleteAPost = (post) => ({ type: DELETE_A_POST, post });
 export const editAPost = (post) => ({ type: EDIT_A_POST, post });
@@ -115,6 +124,13 @@ export default function reducer(state = initialState, action) {
 		// 		currentPost.Likes.push(action.postLike.likeRes);
 		// 	}
 		// 	return newState;
+		// }
+
+		// case LIKE_A_COMMENT: {
+		// 	return {
+		// 		...state,
+		// 		commentLikes: [action.likecomment, ...state.commentLikes],
+		// 	};
 		// }
 
 		case EDIT_A_POST: {

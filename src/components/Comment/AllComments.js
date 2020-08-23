@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetComments } from "../../reducers/commentManagement";
-import { SendOutlined, MoreOutlined, EyeOutlined } from "@ant-design/icons";
-import { Row, Col, Input, Popover } from "antd";
+import { LikeComment } from "../../reducers/postManagement";
+import { MoreOutlined, HeartFilled } from "@ant-design/icons";
+import { Row, Col, Popover } from "antd";
 import { Collapse } from "react-collapse";
 import CreateAComment from "./CreateAComment";
 import DeleteSingleComment from "./DeleteAComment";
@@ -14,7 +15,7 @@ const theme = {
 };
 export default function AllComments(props) {
 	const dispatch = useDispatch();
-	const userId = useSelector((state) => state.authentication.user.id);
+	const user_Id = useSelector((state) => state.authentication.user.id);
 	const comments = useSelector((state) => state.commentManagement.comments);
 	const { postId, isOpened } = props;
 	const [visibleShowmore, setVisibleShowmore] = useState(false);
@@ -33,6 +34,9 @@ export default function AllComments(props) {
 	};
 	const closeShowmore = (e) => {
 		setVisibleShowmore(false);
+	};
+	const onLikeComment = (commentId, postId, user_Id) => () => {
+		dispatch(LikeComment({ commentId, postId, user_Id }));
 	};
 
 	// const closeShowmore = (visiblePopover) => {
@@ -62,7 +66,11 @@ export default function AllComments(props) {
 							</Col> */}
 							<Col style={{ border: "1px solid gray", width: "100%" }}>
 								{comment.commentContent}
-
+								<div>
+									<HeartFilled
+										onClick={onLikeComment(comment.id, postId, user_Id)}
+									/>
+								</div>
 								<Popover
 									content={
 										<div>

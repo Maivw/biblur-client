@@ -11,12 +11,11 @@ export const setUser = (user) => ({ type: SET_USER, user });
 
 export const login = (params) => async (dispatch) => {
 	const result = await axios.post("/users/login", params);
-	console.log("EEEE", result.data);
+
 	dispatch(setToken(result.data.token));
 	dispatch(setUser(result.data.user));
 };
 export const signup = (params) => async (dispatch) => {
-	console.log("OOOOOOO", params);
 	const result = await axios.post("/users", params);
 	dispatch(setToken(result.data.token));
 	dispatch(setUser(result.data.user));
@@ -39,7 +38,6 @@ export default function reducer(state = initialState, action) {
 
 		case REMOVE_TOKEN: {
 			const newState = { ...state };
-			console.log(newState);
 			delete newState.token;
 			return newState;
 		}

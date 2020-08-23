@@ -47,23 +47,20 @@ export const DeleteAComment = (params) => async (dispatch) => {
 	dispatch(deleteComment(result.data.comment));
 };
 export const EditAComment = (params) => async (dispatch) => {
-	console.log("GGGGGGG", params);
 	const result = await axios.put(
 		`/comments/${params.postId}/${params.commentId}`,
 		params
 	);
-
-	console.log("lll", result.data);
 	dispatch(editComment(result.data.comment));
 };
 
-export const GetAComment = (params) => async (dispatch) => {
-	const result = await axios.get(`/comments/${params.postId}/${params.id}`, {
-		...params,
-	});
+// export const GetAComment = (params) => async (dispatch) => {
+// 	const result = await axios.get(`/comments/${params.postId}/${params.id}`, {
+// 		...params,
+// 	});
 
-	dispatch(displayComment(result.data.comment));
-};
+// 	dispatch(displayComment(result.data.comment));
+// };
 
 const initialState = {
 	comments: [],
@@ -72,7 +69,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case CREATE_NEW_COMMENT: {
-			console.log("CCCMMFO", action.comment);
 			return {
 				...state,
 				comments: [action.comment, ...state.comments],
