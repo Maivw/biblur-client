@@ -6,6 +6,7 @@ import { Row, Col, Input, Popover } from "antd";
 import { Collapse } from "react-collapse";
 import CreateAComment from "./CreateAComment";
 import DeleteSingleComment from "./DeleteAComment";
+import EditSingleComment from "./EditSingleComment";
 
 const theme = {
 	collapse: "ReactCollapse--collapse",
@@ -27,12 +28,16 @@ export default function AllComments(props) {
 	const onShowComments = () => {
 		dispatch(GetComments({ postId }));
 	};
-	const onShowDeleteSingleComment = () => {};
-	const onShowEditSingleComment = () => {};
 	const onShowMore = (commentId) => () => {
 		setVisibleShowmore(commentId);
 	};
-	const closeShowmore = (e) => {};
+	const closeShowmore = (e) => {
+		setVisibleShowmore(false);
+	};
+
+	// const closeShowmore = (visiblePopover) => {
+	// 	setVisibleShowmore(visiblePopover);
+	// };
 	return (
 		<div>
 			<Collapse
@@ -57,17 +62,18 @@ export default function AllComments(props) {
 							</Col> */}
 							<Col style={{ border: "1px solid gray", width: "100%" }}>
 								{comment.commentContent}
+
 								<Popover
 									content={
 										<div>
-											<button
-												onClick={onShowEditSingleComment(comment.id)}
-												style={{ marginLeft: 15 }}
-											>
-												<EyeOutlined style={{ color: "#177ddc" }} />
+											<button style={{ marginLeft: 15 }}>
+												<EditSingleComment
+													postId={postId}
+													commentId={comment.id}
+												/>
 											</button>
 											<br></br>
-											<button onClick={onShowDeleteSingleComment(comment.id)}>
+											<button>
 												<DeleteSingleComment
 													postId={postId}
 													commentId={comment.id}
