@@ -11,7 +11,7 @@ export const likeAComment = (likecomment) => ({
 	type: LIKE_A_COMMENT,
 	likecomment,
 });
-export const likeApost = (post) => ({ type: LIKE_A_POST, post });
+export const likeApost = (like) => ({ type: LIKE_A_POST, like });
 export const displayAllPosts = (posts) => ({ type: DISPLAY_ALL_POSTS, posts });
 export const displayAPost = (currentPost) => ({
 	type: SINGLE_POST,
@@ -20,6 +20,7 @@ export const displayAPost = (currentPost) => ({
 export const createAPost = (post) => ({ type: CREATE_NEW_POST, post });
 export const LikePost = (params) => async (dispatch) => {
 	const result = await axios.post(`/likes/${params.id}`, { ...params });
+	// console.log("result", result.data);
 
 	dispatch(likeApost(result.data.like));
 };
@@ -30,9 +31,9 @@ export const LikeComment = (params) => async (dispatch) => {
 			...params,
 		}
 	);
-	console.log("FFF", result.data.like);
+	console.log("FFF", result.data.like_comment);
 
-	dispatch(likeAComment(result.data.like));
+	dispatch(likeAComment(result.data.like_comment));
 };
 export const deleteAPost = (post) => ({ type: DELETE_A_POST, post });
 export const editAPost = (post) => ({ type: EDIT_A_POST, post });
@@ -45,7 +46,9 @@ export const getAllPosts = (params) => async (dispatch) => {
 };
 export const getAPost = (params) => async (dispatch) => {
 	const result = await axios.get(`/posts/${params.id}`, params);
-	dispatch(displayAPost(result.data.post));
+
+	console.log("hghg", result);
+	// dispatch(displayAPost(result.data.post));
 };
 export const createANewPost = (params) => async (dispatch) => {
 	const result = await axios.post("/posts", params);
@@ -98,15 +101,42 @@ export default function reducer(state = initialState, action) {
 			};
 		}
 
-		// case LIKE_A_POST: {
-		// 	let newState = [...state.posts];
-		// 	const currentPost = newState.find(
-		// 		(post) => post.id === action.post.postId
-		// 	);
-		// 	console.log("gjgj", currentPost);
-		// 	const currentPostLike = currentPost.Likes;
-		// 	console.log("ghghghghhg", currentPostLike);
-		// }
+		case LIKE_A_POST: {
+			let newState = [...state.posts];
+			console.log("oo", newState);
+
+			console.log("jjj", action.like);
+			const currentPost = newState.find(
+				(post) => post.id === action.like.postId
+			);
+
+			const currentPostIndex = newState.findIndex(
+				(post) => post.id === action.like.postId
+			);
+			console.log("find", currentPostIndex);
+			console.log("gjgj", currentPost);
+
+			const currentLike = currentPost.Likes.find(
+				(like) => like.id === action.like.id
+			);
+			console.log("hhhhh", currentLike);
+			console.log("cccc", currentPost);
+			console.log("newState", newState);
+			if (!currentLike) {
+				console.log("ttttt2222", newState[currentPostIndex].Likes);
+				newState[currentPostIndex].Likes.push(action.like);
+			} else {
+				console.log("xxx", newState[currentPostIndex]);
+				newState[currentPostIndex].Likes = newState[
+					currentPostIndex
+				].Likes.filter((like) => like.id !== action.like.id);
+			}
+
+			return {
+				...state,
+				posts: [...newState],
+			};
+		}
 		// case LIKE_A_POST: {
 		// 	// const newState = merge({}, state);
 		// 	const newState = cloneDeep(state);

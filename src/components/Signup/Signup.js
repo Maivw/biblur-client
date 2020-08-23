@@ -45,6 +45,7 @@ function Signup() {
 				/>
 
 				<Input
+					type="password"
 					name="password"
 					label="Password"
 					value={signUpFields.password}
@@ -53,6 +54,7 @@ function Signup() {
 				/>
 
 				<Input
+					type="password"
 					name="confirmPassword"
 					label="Confirm Password"
 					value={signUpFields.confirmPassword}

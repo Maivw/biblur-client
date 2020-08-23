@@ -1,5 +1,5 @@
 import { create } from "axios";
-// import store from "../store/configureStore";
+import { store } from "../index";
 
 const api = create({
 	baseURL: "http://localhost:8080",
@@ -12,10 +12,14 @@ const api = create({
 
 // Add a request interceptor
 api.interceptors.request.use((config) => {
-	// const state = store.getState();
-	// console.log("state", state);
-	// return { ...config, headers: { ...config.headers, Authorization: `Bearer ${token}` } };
-	return { ...config };
+	const state = store.getState();
+	console.log("state", state);
+	const token = state.authentication.token;
+	return {
+		...config,
+		headers: { ...config.headers, Authorization: `Bearer ${token}` },
+	};
+	// return { ...config };
 });
 
 // Add a response interceptor

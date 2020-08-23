@@ -89,11 +89,13 @@ function GetAllPosts(props) {
 				visible={visibleVideoUrl}
 				onCancel={onCancelVideoUrl}
 			/>
-			<EditAPost
-				visible={visibleEditPost}
-				onCancel={onCancelEditPost}
-				id={activePostId}
-			/>
+			{visibleEditPost && (
+				<EditAPost
+					visible={visibleEditPost}
+					onCancel={onCancelEditPost}
+					id={activePostId}
+				/>
+			)}
 			<Row className="mb-6 text-white">
 				Create Post
 				<Col className="text-white" style={{ marginLeft: 30 }}>
@@ -111,7 +113,7 @@ function GetAllPosts(props) {
 					const likes = post.Likes;
 					const love = post.Likes.filter((l) => l.userId === user_Id)[0];
 					return (
-						<>
+						<div key={index}>
 							<Card
 								className="bg-white mt-2 mb-2"
 								style={{ marginBottom: 30 }}
@@ -178,7 +180,7 @@ function GetAllPosts(props) {
 											style={{ color: love ? "red" : "black" }}
 										/>
 										<span style={{ color: "#177ddc" }}>
-											{post.Likes.length}
+											{post.Likes.filter((like) => !like.commentId).length}
 											<span style={{ marginLeft: 7 }}>like</span>
 										</span>
 									</Col>
@@ -204,7 +206,7 @@ function GetAllPosts(props) {
 								<Divider style={{ marginTop: 10, marginBottom: 20 }} />
 								<AllComments postId={post.id} isOpened={collapse} />
 							</Card>
-						</>
+						</div>
 					);
 				})}
 		</div>
