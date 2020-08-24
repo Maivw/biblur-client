@@ -8,6 +8,7 @@ import { Collapse } from "react-collapse";
 import CreateAComment from "./CreateAComment";
 import DeleteSingleComment from "./DeleteAComment";
 import EditSingleComment from "./EditSingleComment";
+import "./AllComment.css";
 
 const imageUrlDefault =
 	"http://sarangglobaltours.com/wp-content/uploads/2014/02/team.png";
@@ -63,96 +64,63 @@ export default function AllComments(props) {
 									<img
 										src={comment.User.imageUrl}
 										alt={comment.User.username}
-										style={{
-											heigth: 30,
-											width: 30,
-											borderRadius: "50%",
-											marginBottom: 10,
-										}}
+										className="commentAvatar"
 									/>
 								) : (
 									<img
 										src={imageUrlDefault}
 										alt="avatar"
-										style={{
-											heigth: 30,
-											width: 30,
-											borderRadius: "50%",
-											marginBottom: 10,
-										}}
+										className="commentAvatar"
 									/>
 								)}
 							</Col>
-							<Col
-								style={{
-									border: "1px solid #f0f0f0",
-									marginBottom: 10,
-									borderRadius: 10,
-									color: " #112a45",
-									heigth: 40,
-								}}
-								xl={17}
-								md={17}
-								xs={17}
-							>
+							<Col className="commentContent" xl={19} md={19} xs={19}>
 								<Row>
-									<Col xl={19} md={19} xs={19}>
+									<Col xl={22} md={22} xs={22}>
 										{comment.commentContent}
 									</Col>
-									<Col
-										xl={4}
-										md={4}
-										xs={4}
-										style={{
-											display: "flex",
-											alignItems: "flex-end",
-											justifyContent: "flex-end",
-										}}
-									>
+									<Col xl={1} md={1} xs={1} className="commentInputIcon">
 										<HeartFilled
 											onClick={onLikeComment(comment.id, postId, user_Id)}
 											style={{ color: loveC === comment.id ? "red" : "black" }}
 										/>
 									</Col>
-									<Col
-										xl={1}
-										md={1}
-										xs={1}
-										style={{
-											display: "flex",
-											alignItems: "flex-end",
-											justifyContent: "center",
-										}}
-									>
-										<Popover
-											content={
-												<div>
-													<button style={{ marginLeft: 15 }}>
+									<Col xl={1} md={1} xs={1} className="commentInputIcon">
+										<div className="popover">
+											<Popover
+												content={
+													<div>
 														<EditSingleComment
 															postId={postId}
 															commentId={comment.id}
 														/>
-													</button>
-													<br></br>
-													<button>
-														<DeleteSingleComment
-															postId={postId}
-															commentId={comment.id}
-														/>
-													</button>
+														<div
+															style={{
+																display: "flex",
+																justifyContent: "space-between",
+																marginTop: 10,
+															}}
+														>
+															<DeleteSingleComment
+																postId={postId}
+																commentId={comment.id}
+															/>
+															<p
+																onClick={closeShowmore}
+																style={{ marginLeft: 15, color: "#8c8c8c" }}
+															>
+																Close
+															</p>
+														</div>
+													</div>
+												}
+												title=""
+												trigger="click"
+												visible={visibleShowmore === comment.id}
+												className="popover"
+											></Popover>
+										</div>
 
-													<p
-														onClick={closeShowmore}
-														style={{ marginLeft: 15, color: "#177ddc" }}
-													>
-														Close
-													</p>
-												</div>
-											}
-											title=""
-											trigger="click"
-											visible={visibleShowmore === comment.id}
-										></Popover>
 										<MoreOutlined
 											style={{
 												display: "flex",
@@ -167,7 +135,8 @@ export default function AllComments(props) {
 						</Row>
 					))}
 				<Row xl={24} md={24} xs={24}>
-					<Col xl={18} md={18} xs={18}>
+					<Col xl={3} md={3} xs={3}></Col>
+					<Col xl={19} md={19} xs={19}>
 						<CreateAComment postId={postId} />
 					</Col>
 				</Row>

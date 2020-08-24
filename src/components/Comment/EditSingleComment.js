@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
 import { SendOutlined } from "@ant-design/icons";
-import { Row, Col, Input } from "antd";
+import { Input } from "antd";
 import { EditAComment } from "../../reducers/commentManagement";
+import "./AllComment.css";
 
 function EditSingleComment(props) {
 	const { postId, commentId } = props;
@@ -24,13 +24,7 @@ function EditSingleComment(props) {
 				onChange={updateInputComment}
 				name="commentContent"
 				value={commentContent}
-				style={{
-					heigth: 40,
-					borderColor: "#f0f0f0",
-					backgroundColor: "grey",
-					borderStyle: "solid",
-					borderRadius: 5,
-				}}
+				className="createCommentInput"
 			/>
 			<SendOutlined
 				onClick={onEditComment}

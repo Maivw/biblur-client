@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
 import { SendOutlined } from "@ant-design/icons";
 import { Row, Col, Input } from "antd";
 import { MakeAComment, GetComments } from "../../reducers/commentManagement";
+import "./AllComment.css";
 
 export default function CreateAComment({ postId }) {
 	const dispatch = useDispatch();
@@ -23,15 +23,6 @@ export default function CreateAComment({ postId }) {
 	return (
 		<div>
 			<Row className="mt-3">
-				<Col xl={4} md={4} sm={4}>
-					<img
-						style={{
-							heigth: 30,
-							width: 30,
-							borderRadius: 15,
-						}}
-					/>
-				</Col>
 				<Col
 					xl={19}
 					md={19}
@@ -43,13 +34,7 @@ export default function CreateAComment({ postId }) {
 						onChange={updateInputComment}
 						name="commentContent"
 						value={commentContent}
-						style={{
-							heigth: 40,
-							width: "100%",
-							borderColor: "#111d2c",
-							borderStyle: "solid",
-							borderRadius: 5,
-						}}
+						className="createCommentInput"
 					/>
 					<SendOutlined
 						onClick={onSentComment}
