@@ -1,0 +1,11 @@
+.allPost,
+.createPost__options {
+	display: flex;
+	justify-content: center;
+	border: 1px solid yellow;
+}
+
+.createPost__options {
+	position: fixed;
+	top: 15%;
+}

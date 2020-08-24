@@ -63,6 +63,7 @@ function Login(props) {
 					/>
 
 					<Input
+						type="password"
 						label="Password"
 						name="password"
 						value={loginFields.password}

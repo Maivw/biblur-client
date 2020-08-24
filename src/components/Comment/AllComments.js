@@ -9,6 +9,9 @@ import CreateAComment from "./CreateAComment";
 import DeleteSingleComment from "./DeleteAComment";
 import EditSingleComment from "./EditSingleComment";
 
+const imageUrlDefault =
+	"https://www.pngkey.com/png/detail/52-522921_kathrine-vangen-profile-pic-empty-png.png";
+
 const theme = {
 	collapse: "ReactCollapse--collapse",
 	content: "ReactCollapse--content",
@@ -58,18 +61,31 @@ export default function AllComments(props) {
 				{comments &&
 					comments.map((comment) => (
 						<Row key={comment.id}>
-							{/* <Col>
-								<img
-									src={comment.User.imageUrl}
-									alt={comment.User.username}
-									style={{
-										heigth: 30,
-										width: 30,
-										borderRadius: "50%",
-										marginBottom: 10,
-									}}
-								/>
-							</Col> */}
+							<Col>
+								{comment.User.imageUrl ? (
+									<img
+										src={comment.User.imageUrl}
+										alt={comment.User.username}
+										style={{
+											heigth: 30,
+											width: 30,
+											borderRadius: "50%",
+											marginBottom: 10,
+										}}
+									/>
+								) : (
+									<img
+										src={imageUrlDefault}
+										alt="avatar"
+										style={{
+											heigth: 30,
+											width: 30,
+											borderRadius: "50%",
+											marginBottom: 10,
+										}}
+									/>
+								)}
+							</Col>
 							<Col style={{ border: "1px solid gray", width: "100%" }}>
 								{comment.commentContent}
 								<div>

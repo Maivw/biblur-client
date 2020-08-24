@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { SendOutlined } from "@ant-design/icons";
 import { Row, Col, Input } from "antd";
-import { MakeAComment } from "../../reducers/commentManagement";
+import { MakeAComment, GetComments } from "../../reducers/commentManagement";
 
 export default function CreateAComment({ postId }) {
 	const dispatch = useDispatch();
@@ -13,6 +13,7 @@ export default function CreateAComment({ postId }) {
 	const onSentComment = (e) => {
 		e.preventDefault();
 		dispatch(MakeAComment({ commentContent, userId, postId }));
+		dispatch(GetComments({ postId }));
 		setCommentContent("");
 	};
 	const updateInputComment = (e) => {
