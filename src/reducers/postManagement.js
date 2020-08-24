@@ -144,10 +144,6 @@ export default function reducer(state = initialState, action) {
 				(like) => like.commentId === action.likecomment.commentId
 			);
 
-			console.log("ccccurnt", currentPostIndex);
-			console.log("cc33", currentLikeComment);
-			console.log("ffff2234", newState[currentPostIndex].Likes);
-
 			if (!currentLikeComment) {
 				newState[currentPostIndex].Likes.push(action.likecomment);
 			} else {

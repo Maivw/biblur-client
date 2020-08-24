@@ -39,8 +39,14 @@ function Home() {
 			<Layout className="site-layout">
 				<Header className="site-layout-background" style={{ padding: 0 }}>
 					<div className="logo" />
+
 					<Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-						<Menu.Item key="1">Logo</Menu.Item>
+						<Menu.Item key="1">
+							<img
+								src="https://res.cloudinary.com/maivw/image/upload/v1598292590/05f4a9f5-9714-4ba2-85f5-bc6e550b7b35_200x200_djglwy.png"
+								style={{ width: 130 }}
+							/>
+						</Menu.Item>
 					</Menu>
 				</Header>
 				<Content style={{ margin: "24px 16px 0", overflow: "initial" }}>

@@ -2,10 +2,15 @@
 .createPost__options {
 	display: flex;
 	justify-content: center;
-	border: 1px solid yellow;
 }
 
-.createPost__options {
-	position: fixed;
-	top: 15%;
+.cardPost {
+	border: 1px solid #112a45;
+	margin-bottom: 20px;
+	border-radius: 10px;
+}
+.createPost__options > span {
+	padding: 30px;
+	color: white;
+	font-size: 20px;
 }

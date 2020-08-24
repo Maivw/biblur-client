@@ -10,7 +10,7 @@ import DeleteSingleComment from "./DeleteAComment";
 import EditSingleComment from "./EditSingleComment";
 
 const imageUrlDefault =
-	"https://www.pngkey.com/png/detail/52-522921_kathrine-vangen-profile-pic-empty-png.png";
+	"http://sarangglobaltours.com/wp-content/uploads/2014/02/team.png";
 
 const theme = {
 	collapse: "ReactCollapse--collapse",

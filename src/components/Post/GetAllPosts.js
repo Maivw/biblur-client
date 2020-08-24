@@ -28,8 +28,7 @@ import EditAPost from "./EditAPost";
 import DeleteAPost from "./DeleteAPost";
 import AllComments from "../Comment/AllComments";
 const imageUrlDefault =
-	"https://www.pngkey.com/png/detail/52-522921_kathrine-vangen-profile-pic-empty-png.png";
-
+	"http://sarangglobaltours.com/wp-content/uploads/2014/02/team.png";
 function GetAllPosts(props) {
 	const [collapse, setCollapse] = useState(null);
 	const posts = useSelector((state) => state.postManagement.posts);
@@ -100,15 +99,24 @@ function GetAllPosts(props) {
 				/>
 			)}
 			<Row className="createPost__options">
-				Create Post
+				<span>Create a Post</span>
 				<Col className="text-white" style={{ marginLeft: 30 }}>
-					<PictureOutlined onClick={onShowModal} />
+					<PictureOutlined
+						onClick={onShowModal}
+						style={{ color: "white", padding: 30 }}
+					/>
 				</Col>
 				<Col className="text-white" style={{ marginLeft: 30 }}>
-					<EditOutlined onClick={onShowModalImageUrl} />
+					<EditOutlined
+						onClick={onShowModalImageUrl}
+						style={{ color: "white", padding: 30 }}
+					/>
 				</Col>
 				<Col className="text-white" style={{ marginLeft: 30 }}>
-					<YoutubeOutlined onClick={onShowModalVideoUrl} />
+					<YoutubeOutlined
+						onClick={onShowModalVideoUrl}
+						style={{ color: "white", padding: 30 }}
+					/>
 				</Col>
 			</Row>
 			<Row className="allPost">
@@ -116,56 +124,83 @@ function GetAllPosts(props) {
 					posts.map((post, index) => {
 						const likes = post.Likes;
 						const love = post.Likes.filter((l) => l.userId === user_Id)[0];
+						const l = post.Likes.filter((like) => !like.commentId).length;
 
 						return (
 							<Col key={index} xs={4} sm={6} md={8} lg={10} xl={14}>
-								<Card
-									className="bg-white mt-2 mb-2"
-									style={{ marginBottom: 30 }}
-									key={index}
-								>
+								<Card className="cardPost" key={index}>
 									<Row key={index}>
-										<Col span={6}>
+										<Col
+											span={12}
+											style={{ display: "flex", justifyContent: "flex-start" }}
+										>
 											{!post.User.imageUrl ? (
 												<img
 													src="https://www.pngkey.com/png/detail/52-522921_kathrine-vangen-profile-pic-empty-png.png"
-													width="60"
-													height="60"
-													style={{ borderRadius: "50%" }}
+													width="50"
+													height="50"
+													style={{ borderRadius: "50%", objectFit: "cover" }}
 												/>
 											) : (
 												<img
 													src={post.User.imageUrl}
-													width="60"
-													height="60"
-													style={{ borderRadius: "50%" }}
+													width="50"
+													height="50"
+													style={{ borderRadius: "50%", objectFit: "cover" }}
 												/>
 											)}
-										</Col>
-										<Col className="flex justify-center flex-col ml-4" span={6}>
-											<Link to={`/users/${post.userId}`}>
-												<div className="text-2xl">{post.User.username}</div>
-											</Link>
-											<div>
-												{moment(post.createdAt).format("DD/MM/YYYY h:mm:ss a")}{" "}
-												At: {post.location}
+											<div
+												style={{
+													textAlign: "left",
+													marginLeft: 15,
+													fontSize: 8,
+													lineHeight: 0.5,
+													color: "#8c8c8c",
+												}}
+											>
+												<Link to={`/users/${post.userId}`}>
+													<p style={{ fontSize: 16 }}>
+														<strong>{post.User.username}</strong>
+													</p>
+												</Link>
+												<p>
+													{moment(post.createdAt).format(
+														"DD/MM/YYYY h:mm:ss a"
+													)}
+													<span style={{ marginLeft: 10 }}>
+														At: {post.location}
+													</span>
+												</p>
 											</div>
 										</Col>
 
-										<Col span={6}>
+										<Col
+											span={12}
+											style={{ display: "flex", justifyContent: "flex-end" }}
+										>
 											<DeleteAPost id={post.id} />
 										</Col>
 									</Row>
 									<Row>
-										<div>{post.postContent}</div>
+										<div
+											style={{
+												fontSize: 16,
+												marginLeft: 10,
+												padding: 10,
+												color: "#434343",
+											}}
+										>
+											{post.postContent}
+										</div>
 										<div>
 											{post.imagePostUrl && (
 												<img
 													src={post.imagePostUrl}
 													style={{
 														maxHeight: 540,
-														objectFit: "contain",
+														objectFit: "cover",
 														width: "100%",
+														padding: 15,
 													}}
 												></img>
 											)}
@@ -175,8 +210,9 @@ function GetAllPosts(props) {
 												<video
 													style={{
 														maxHeight: 540,
-														objectFit: "contain",
+														objectFit: "cover",
 														width: "100%",
+														padding: 15,
 													}}
 													controls
 												>
@@ -188,14 +224,17 @@ function GetAllPosts(props) {
 									<Divider style={{ marginTop: 20, marginBottom: 10 }} />
 									<Row>
 										<Col xl={4} md={4} xs={4} className="text-center mt-1">
-											{/* <LikeAPost postId={post.id} /> */}
 											<HeartFilled
 												onClick={onLikePost(post)}
 												style={{ color: love ? "red" : "black" }}
 											/>
-											<span style={{ color: "#177ddc" }}>
+											<span style={{ color: "#177ddc", marginLeft: 7 }}>
 												{post.Likes.filter((like) => !like.commentId).length}
-												<span style={{ marginLeft: 7 }}>like</span>
+												{l <= 1 ? (
+													<span style={{ marginLeft: 2 }}>like</span>
+												) : (
+													<span style={{ marginLeft: 2 }}>likes</span>
+												)}
 											</span>
 										</Col>
 										<Col
