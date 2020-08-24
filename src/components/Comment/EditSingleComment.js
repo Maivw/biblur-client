@@ -26,8 +26,7 @@ function EditSingleComment(props) {
 				value={commentContent}
 				style={{
 					heigth: 40,
-					width: "95%",
-					borderColor: "#111d2c",
+					borderColor: "#f0f0f0",
 					backgroundColor: "grey",
 					borderStyle: "solid",
 					borderRadius: 5,

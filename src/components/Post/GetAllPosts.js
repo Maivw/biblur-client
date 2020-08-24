@@ -137,27 +137,15 @@ function GetAllPosts(props) {
 											{!post.User.imageUrl ? (
 												<img
 													src="https://www.pngkey.com/png/detail/52-522921_kathrine-vangen-profile-pic-empty-png.png"
-													width="50"
-													height="50"
-													style={{ borderRadius: "50%", objectFit: "cover" }}
+													className="headerCardAvatar"
 												/>
 											) : (
 												<img
 													src={post.User.imageUrl}
-													width="50"
-													height="50"
-													style={{ borderRadius: "50%", objectFit: "cover" }}
+													className="headerCardAvatar"
 												/>
 											)}
-											<div
-												style={{
-													textAlign: "left",
-													marginLeft: 15,
-													fontSize: 8,
-													lineHeight: 0.5,
-													color: "#8c8c8c",
-												}}
-											>
+											<div className="headerCardInfo">
 												<Link to={`/users/${post.userId}`}>
 													<p style={{ fontSize: 16 }}>
 														<strong>{post.User.username}</strong>
@@ -174,48 +162,23 @@ function GetAllPosts(props) {
 											</div>
 										</Col>
 
-										<Col
-											span={12}
-											style={{ display: "flex", justifyContent: "flex-end" }}
-										>
+										<Col span={12} className="deletePostIcon">
 											<DeleteAPost id={post.id} />
 										</Col>
 									</Row>
 									<Row>
-										<div
-											style={{
-												fontSize: 16,
-												marginLeft: 10,
-												padding: 10,
-												color: "#434343",
-											}}
-										>
-											{post.postContent}
-										</div>
+										<div className="postContent">{post.postContent}</div>
 										<div>
 											{post.imagePostUrl && (
 												<img
 													src={post.imagePostUrl}
-													style={{
-														maxHeight: 540,
-														objectFit: "cover",
-														width: "100%",
-														padding: 15,
-													}}
+													className="inputRender"
 												></img>
 											)}
 										</div>
 										<div>
 											{post.videoPostUrl && (
-												<video
-													style={{
-														maxHeight: 540,
-														objectFit: "cover",
-														width: "100%",
-														padding: 15,
-													}}
-													controls
-												>
+												<video className="inputRender" controls>
 													<source src={post.videoPostUrl} type="video/mp4" />
 												</video>
 											)}
@@ -223,7 +186,7 @@ function GetAllPosts(props) {
 									</Row>
 									<Divider style={{ marginTop: 20, marginBottom: 10 }} />
 									<Row>
-										<Col xl={4} md={4} xs={4} className="text-center mt-1">
+										<Col xl={6} md={6} xs={6} className="text-center mt-1">
 											<HeartFilled
 												onClick={onLikePost(post)}
 												style={{ color: love ? "red" : "black" }}
@@ -238,9 +201,9 @@ function GetAllPosts(props) {
 											</span>
 										</Col>
 										<Col
-											xl={4}
-											md={4}
-											xs={4}
+											xl={6}
+											md={6}
+											xs={6}
 											className="text-center mt-1"
 											onClick={onCollapse(post.id)}
 										>
@@ -249,7 +212,7 @@ function GetAllPosts(props) {
 										<Col xl={6} md={6} xs={6} className="text-center mt-1">
 											<ShareAltOutlined onClick={onRepost(post)} />
 										</Col>
-										<Col xl={4} md={4} xs={4} className="text-center mt-1">
+										<Col xl={6} md={6} xs={6} className="text-center mt-1">
 											<MoreOutlined
 												className=".flex .justify-end"
 												onClick={onShowEditModal(post.id)}

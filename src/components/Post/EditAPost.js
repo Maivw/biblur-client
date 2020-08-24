@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import { editCurrentPost, getAPost } from "../../reducers/postManagement";
 import { Row, Col, Card, Modal } from "antd";
-import { PictureOutlined } from "@ant-design/icons";
+import "./EditAPost.css";
 
 function EditAPost({ visible, onCancel, id }) {
 	const post = useSelector((state) => state.postManagement.currentPost);
+	console.log("JJJ", post);
 	const userId = useSelector((state) => state.authentication.user.id);
 	const [postEdited, setPostEdited] = useState({
 		postContent: "",
@@ -17,8 +17,6 @@ function EditAPost({ visible, onCancel, id }) {
 		imagePostUrl: "",
 		videoPostUrl: "",
 	});
-	const [file, setFile] = useState("");
-	const [imageFile, setImageFile] = useState("");
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getAPost({ id }));
@@ -36,61 +34,53 @@ function EditAPost({ visible, onCancel, id }) {
 	return (
 		<Modal visible={visible} onCancel={onCancel} onOk={onEdit}>
 			{post && (
-				<Card hoverable>
-					<Row>
-						<Col span={6}>
-							<img
-								src={post.User.imageUrl}
-								width="60"
-								height="60"
-								style={{ borderRadius: "50%" }}
-							/>
-						</Col>
-						<Col className="flex justify-center flex-col ml-4" span={6}>
-							<Link to={`/users/${post.userId}`}>
-								<div className="text-2xl">{post.User.username}</div>
-							</Link>
-							<div>
-								{moment(post.createdAt).format("DD/MM/YYYY h:mm:ss a")} At:{" "}
-								{post.location}
-							</div>
-						</Col>
+				<Card hoverable className="EditPost">
+					<p>
+						<strong style={{ color: "#112a45" }}>Edit your post</strong>
+					</p>
+					<Row
+						style={{
+							display: "flex",
+							justifyContent: "center",
+						}}
+					>
+						{post.imagePostUrl && (
+							<img className="inputRender" src={post.imagePostUrl} />
+						)}
+						{post.videoPostUrl && (
+							<video className="inputRender" controls>
+								<source src={post.videoPostUrl} type="video/mp4" />
+							</video>
+						)}
 					</Row>
-					<Row>
+					<Row
+						style={{
+							display: "flex",
+							justifyContent: "center",
+						}}
+					>
 						<input
+							className="inputEditChange"
 							placeholder={post.postContent}
 							value={postEdited.postContent}
 							name="postContent"
 							onChange={onChangeEditInput}
 						/>
+						<br />
 
 						{post.imagePostUrl && (
 							<input
+								className="inputEditChange"
 								onChange={onChangeEditInput}
 								value={postEdited.imagePostUrl}
 								placeholder={post.imagePostUrl}
 								name="imagePostUrl"
 							/>
-							// <div className="flex justify-around">
-							// 	<label style={{ fontSize: "20px", marginLeft: "80%" }}>
-							// 		<span>
-							// 			<PictureOutlined />
-							// 		</span>
-							// 		<input
-							// 			name="imagePostUrl"
-							// 			type="file"
-							// 			style={{ display: "none" }}
-							// 			value={post.imagePostUrl}
-							// 		/>
-							// 	</label>
-							// 	{file && (
-							// 		<img src={imageFile} alt="img" style={{ height: 50 }} />
-							// 	)}
-							// </div>
 						)}
 						{post.videoPostUrl && (
 							<Row>
 								<input
+									className="inputEditChange"
 									onChange={onChangeEditInput}
 									value={postEdited.videoPostUrl}
 									placeholder={post.videoPostUrl}

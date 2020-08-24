@@ -48,9 +48,6 @@ export default function AllComments(props) {
 		}
 	};
 
-	// const closeShowmore = (visiblePopover) => {
-	// 	setVisibleShowmore(visiblePopover);
-	// };
 	return (
 		<div>
 			<Collapse
@@ -61,7 +58,7 @@ export default function AllComments(props) {
 				{comments &&
 					comments.map((comment) => (
 						<Row key={comment.id}>
-							<Col>
+							<Col xl={3} md={3} xs={3}>
 								{comment.User.imageUrl ? (
 									<img
 										src={comment.User.imageUrl}
@@ -86,55 +83,94 @@ export default function AllComments(props) {
 									/>
 								)}
 							</Col>
-							<Col style={{ border: "1px solid gray", width: "100%" }}>
-								{comment.commentContent}
-								<div>
-									<HeartFilled
-										onClick={onLikeComment(comment.id, postId, user_Id)}
-										style={{ color: loveC === comment.id ? "red" : "black" }}
-									/>
-								</div>
-								<Popover
-									content={
-										<div>
-											<button style={{ marginLeft: 15 }}>
-												<EditSingleComment
-													postId={postId}
-													commentId={comment.id}
-												/>
-											</button>
-											<br></br>
-											<button>
-												<DeleteSingleComment
-													postId={postId}
-													commentId={comment.id}
-												/>
-											</button>
+							<Col
+								style={{
+									border: "1px solid #f0f0f0",
+									marginBottom: 10,
+									borderRadius: 10,
+									color: " #112a45",
+									heigth: 40,
+								}}
+								xl={17}
+								md={17}
+								xs={17}
+							>
+								<Row>
+									<Col xl={19} md={19} xs={19}>
+										{comment.commentContent}
+									</Col>
+									<Col
+										xl={4}
+										md={4}
+										xs={4}
+										style={{
+											display: "flex",
+											alignItems: "flex-end",
+											justifyContent: "flex-end",
+										}}
+									>
+										<HeartFilled
+											onClick={onLikeComment(comment.id, postId, user_Id)}
+											style={{ color: loveC === comment.id ? "red" : "black" }}
+										/>
+									</Col>
+									<Col
+										xl={1}
+										md={1}
+										xs={1}
+										style={{
+											display: "flex",
+											alignItems: "flex-end",
+											justifyContent: "center",
+										}}
+									>
+										<Popover
+											content={
+												<div>
+													<button style={{ marginLeft: 15 }}>
+														<EditSingleComment
+															postId={postId}
+															commentId={comment.id}
+														/>
+													</button>
+													<br></br>
+													<button>
+														<DeleteSingleComment
+															postId={postId}
+															commentId={comment.id}
+														/>
+													</button>
 
-											<p
-												onClick={closeShowmore}
-												style={{ marginLeft: 15, color: "#177ddc" }}
-											>
-												Close
-											</p>
-										</div>
-									}
-									title=""
-									trigger="click"
-									visible={visibleShowmore === comment.id}
-								></Popover>
-								<MoreOutlined
-									style={{
-										display: "flex",
-										justifyContent: "flex-end",
-										marginTop: -10,
-									}}
-									onClick={onShowMore(comment.id)}
-								/>
+													<p
+														onClick={closeShowmore}
+														style={{ marginLeft: 15, color: "#177ddc" }}
+													>
+														Close
+													</p>
+												</div>
+											}
+											title=""
+											trigger="click"
+											visible={visibleShowmore === comment.id}
+										></Popover>
+										<MoreOutlined
+											style={{
+												display: "flex",
+												justifyContent: "flex-end",
+												marginTop: -10,
+											}}
+											onClick={onShowMore(comment.id)}
+										/>
+									</Col>
+								</Row>
 							</Col>
 						</Row>
 					))}
-				<CreateAComment postId={postId} />
+				<Row xl={24} md={24} xs={24}>
+					<Col xl={18} md={18} xs={18}>
+						<CreateAComment postId={postId} />
+					</Col>
+				</Row>
 			</Collapse>
 		</div>
 	);

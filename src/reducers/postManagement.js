@@ -48,7 +48,7 @@ export const getAPost = (params) => async (dispatch) => {
 	const result = await axios.get(`/posts/${params.id}`, params);
 
 	console.log("hghg", result);
-	// dispatch(displayAPost(result.data.post));
+	dispatch(displayAPost(result.data.post));
 };
 export const createANewPost = (params) => async (dispatch) => {
 	const result = await axios.post("/posts", params);

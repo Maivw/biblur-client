@@ -16,8 +16,12 @@ export default function DeleteSingleComment({ postId, commentId }) {
 
 	return (
 		<div>
-			<Button type="text" onClick={onDeleteComment}>
-				<DeleteOutlined style={{ color: "#177ddc" }} />
+			<Button
+				type="text"
+				onClick={onDeleteComment}
+				style={{ color: "#8c8c8c" }}
+			>
+				<DeleteOutlined />
 			</Button>
 		</div>
 	);

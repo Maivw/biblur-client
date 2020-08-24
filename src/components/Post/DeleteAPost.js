@@ -16,7 +16,7 @@ function DeleteAPost({ id }) {
 		<div>
 			<div type="text" onClick={onDelete}>
 				<DeleteOutlined
-					style={{ color: "#177ddc", fontSize: "20px", marginLeft: 10 }}
+					style={{ color: "#8c8c8c", fontSize: "20px", marginLeft: 10 }}
 				/>
 			</div>
 		</div>
