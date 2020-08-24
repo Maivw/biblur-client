@@ -31,7 +31,7 @@ export const LikeComment = (params) => async (dispatch) => {
 			...params,
 		}
 	);
-	console.log("FFF", result.data.like_comment);
+	console.log("FFF", result.data);
 
 	dispatch(likeAComment(result.data.like_comment));
 };
@@ -103,9 +103,7 @@ export default function reducer(state = initialState, action) {
 
 		case LIKE_A_POST: {
 			let newState = [...state.posts];
-			console.log("oo", newState);
 
-			console.log("jjj", action.like);
 			const currentPost = newState.find(
 				(post) => post.id === action.like.postId
 			);
@@ -113,20 +111,14 @@ export default function reducer(state = initialState, action) {
 			const currentPostIndex = newState.findIndex(
 				(post) => post.id === action.like.postId
 			);
-			console.log("find", currentPostIndex);
-			console.log("gjgj", currentPost);
 
 			const currentLike = currentPost.Likes.find(
 				(like) => like.id === action.like.id
 			);
-			console.log("hhhhh", currentLike);
-			console.log("cccc", currentPost);
-			console.log("newState", newState);
+
 			if (!currentLike) {
-				console.log("ttttt2222", newState[currentPostIndex].Likes);
 				newState[currentPostIndex].Likes.push(action.like);
 			} else {
-				console.log("xxx", newState[currentPostIndex]);
 				newState[currentPostIndex].Likes = newState[
 					currentPostIndex
 				].Likes.filter((like) => like.id !== action.like.id);
@@ -137,31 +129,39 @@ export default function reducer(state = initialState, action) {
 				posts: [...newState],
 			};
 		}
-		// case LIKE_A_POST: {
-		// 	// const newState = merge({}, state);
-		// 	const newState = cloneDeep(state);
-		// 	const currentPost = newState.posts.find(
-		// 		(post) => post.id === action.postLike.postId
-		// 	);
-		// 	const currentPostLike = currentPost.Likes.find(
-		// 		(obj) => obj.user_id === action.postLike.userId
-		// 	);
-		// 	if (currentPostLike) {
-		// 		currentPost.Likes = currentPost.Likes.filter(
-		// 			(e) => e.id !== currentPostLike.id
-		// 		);
-		// 	} else {
-		// 		currentPost.Likes.push(action.postLike.likeRes);
-		// 	}
-		// 	return newState;
-		// }
 
-		// case LIKE_A_COMMENT: {
-		// 	return {
-		// 		...state,
-		// 		commentLikes: [action.likecomment, ...state.commentLikes],
-		// 	};
-		// }
+		case LIKE_A_COMMENT: {
+			console.log("aaa", action.likecomment);
+			let newState = [...state.posts];
+			console.log("newState", newState);
+
+			//find currentPost index
+			const currentPostIndex = newState.findIndex(
+				(post) => post.id === action.likecomment.postId
+			);
+
+			const currentLikeComment = newState[currentPostIndex].Likes.find(
+				(like) => like.commentId === action.likecomment.commentId
+			);
+
+			console.log("ccccurnt", currentPostIndex);
+			console.log("cc33", currentLikeComment);
+			console.log("ffff2234", newState[currentPostIndex].Likes);
+
+			if (!currentLikeComment) {
+				newState[currentPostIndex].Likes.push(action.likecomment);
+			} else {
+				newState[currentPostIndex].Likes = newState[
+					currentPostIndex
+				].Likes.filter(
+					(like) => like.commentId !== action.likecomment.commentId
+				);
+			}
+			return {
+				...state,
+				posts: [...newState],
+			};
+		}
 
 		case EDIT_A_POST: {
 			return {

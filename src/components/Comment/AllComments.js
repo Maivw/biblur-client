@@ -19,6 +19,7 @@ export default function AllComments(props) {
 	const comments = useSelector((state) => state.commentManagement.comments);
 	const { postId, isOpened } = props;
 	const [visibleShowmore, setVisibleShowmore] = useState(false);
+	const [loveC, setLoveC] = useState(null);
 
 	useEffect(() => {
 		if (postId === isOpened) {
@@ -37,6 +38,11 @@ export default function AllComments(props) {
 	};
 	const onLikeComment = (commentId, postId, user_Id) => () => {
 		dispatch(LikeComment({ commentId, postId, user_Id }));
+		if (!loveC) {
+			setLoveC(commentId);
+		} else {
+			setLoveC(null);
+		}
 	};
 
 	// const closeShowmore = (visiblePopover) => {
@@ -51,7 +57,7 @@ export default function AllComments(props) {
 			>
 				{comments &&
 					comments.map((comment) => (
-						<Row>
+						<Row key={comment.id}>
 							{/* <Col>
 								<img
 									src={comment.User.imageUrl}
@@ -69,6 +75,7 @@ export default function AllComments(props) {
 								<div>
 									<HeartFilled
 										onClick={onLikeComment(comment.id, postId, user_Id)}
+										style={{ color: loveC === comment.id ? "red" : "black" }}
 									/>
 								</div>
 								<Popover

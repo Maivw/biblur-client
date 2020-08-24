@@ -112,6 +112,7 @@ function GetAllPosts(props) {
 				posts.map((post, index) => {
 					const likes = post.Likes;
 					const love = post.Likes.filter((l) => l.userId === user_Id)[0];
+
 					return (
 						<div key={index}>
 							<Card
