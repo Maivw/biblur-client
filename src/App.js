@@ -17,7 +17,6 @@ function App() {
 					<Route exact path="/logout" component={Logout} />
 					<Route exact path="/" component={Home} />
 					<Route exact path="/dashboard" component={GetAllPosts} />
-					{/* <Route exact path="/dashboard/:id" component={GetSinglePost} /> */}
 				</Switch>
 			</BrowserRouter>
 		</>
