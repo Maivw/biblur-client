@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../reducers/authentication";
+import "./Login.css";
 
 import { Form, Input, Row, Col } from "antd";
 const layout = {
@@ -38,15 +39,7 @@ function Login(props) {
 		return <Redirect to="/" />;
 	}
 	return (
-		<Row
-			className="container"
-			style={{
-				display: "flex",
-				justifyContent: "center",
-				alignItems: "center",
-				height: "100%",
-			}}
-		>
+		<Row className="container" className="loginForm">
 			<Col xs={2} sm={4} md={6} lg={8} xl={10}>
 				<Form
 					{...layout}
@@ -70,10 +63,34 @@ function Login(props) {
 						onChange={onChangeInputFiels}
 					/>
 
-					<button type="primary" onClick={onLogin}>
+					<button
+						type="primary"
+						className="ghost"
+						id="signIn"
+						onClick={onLogin}
+					>
 						Login
 					</button>
 				</Form>
+			</Col>
+			<Col xs={2} sm={4} md={6} lg={8} xl={10}>
+				<div class="overlay-container">
+					<div class="overlay">
+						<div class="overlay-panel overlay-left">
+							<h1>Welcome Back!</h1>
+							<p>
+								To keep connected with us please login with your personal info
+							</p>
+						</div>
+						<div class="overlay-panel overlay-right">
+							<h1>Hello, Friend!</h1>
+							<p>Enter your personal details and start journey with us</p>
+							<button class="ghost" id="signUp">
+								Sign Up
+							</button>
+						</div>
+					</div>
+				</div>
 			</Col>
 		</Row>
 	);

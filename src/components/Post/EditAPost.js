@@ -8,7 +8,7 @@ import "./EditAPost.css";
 
 function EditAPost({ visible, onCancel, id }) {
 	const post = useSelector((state) => state.postManagement.currentPost);
-	console.log("JJJ", post);
+
 	const userId = useSelector((state) => state.authentication.user.id);
 	const [postEdited, setPostEdited] = useState({
 		postContent: "",
@@ -52,6 +52,16 @@ function EditAPost({ visible, onCancel, id }) {
 								<source src={post.videoPostUrl} type="video/mp4" />
 							</video>
 						)}
+						<p>
+							If you do not want to change the image or video, please copy the
+							link and paste it below.
+						</p>
+						{post.imagePostUrl && (
+							<p style={{ fontSize: 8, color: "blue" }}>{post.imagePostUrl}</p>
+						)}
+						{post.videoPostUrl && (
+							<p style={{ fontSize: 8, color: "blue" }}>{post.videoPostUrl}</p>
+						)}
 					</Row>
 					<Row
 						style={{
@@ -70,6 +80,7 @@ function EditAPost({ visible, onCancel, id }) {
 
 						{post.imagePostUrl && (
 							<input
+								type="text"
 								className="inputEditChange"
 								onChange={onChangeEditInput}
 								value={postEdited.imagePostUrl}
