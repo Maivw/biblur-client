@@ -1,19 +1,20 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import GetAllPosts from "../Post/GetAllPosts";
 import Logout from "../Logout/Logout";
 import "./Home.css";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu } from "antd";
 import {
 	DesktopOutlined,
-	PieChartOutlined,
-	FileOutlined,
-	TeamOutlined,
 	UserOutlined,
+	LoginOutlined,
 } from "@ant-design/icons";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 function Home() {
+	const token = useSelector((state) => state.authentication.token);
 	const [collapsed, setCollapsed] = useState(false);
 	const onCollapse = (collapsed) => {
 		this.setState({ collapsed });
@@ -32,7 +33,13 @@ function Home() {
 						<Menu.Item key="5">Settings</Menu.Item>
 					</SubMenu>
 					<Menu.Item key="3">
-						<Logout />
+						{token ? (
+							<Logout />
+						) : (
+							<Link to="/login">
+								<LoginOutlined /> Log in
+							</Link>
+						)}
 					</Menu.Item>
 				</Menu>
 			</Sider>
