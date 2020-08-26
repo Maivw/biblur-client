@@ -30,7 +30,6 @@ function CreatePostImageFile({ visible, onCancel }) {
 		data.append("imagePostUrl", file);
 		data.append("location", post.location);
 		data.append("userId", post.userId);
-
 		dispatch(createANewPost(data));
 		dispatch(getAllPosts());
 		onCancel();

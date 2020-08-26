@@ -4,8 +4,10 @@ const SET_TOKEN = "SET_TOKEN";
 const SET_PROFILE = "SET_PROFILE";
 const SET_USER = "SET_USER ";
 const REMOVE_TOKEN = "REMOVE_TOKEN";
+const EDIT_USER = "EDIT_USER";
 
 export const setToken = (token) => ({ type: SET_TOKEN, token });
+export const editUser = (editedUser) => ({ type: EDIT_USER, editedUser });
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
 export const setUser = (user) => ({ type: SET_USER, user });
 export const getUserLoggedIn = (userLoggedIn) => ({
@@ -34,9 +36,18 @@ export const getUserProfile = (params) => async (dispatch) => {
 
 	dispatch(getUserLoggedIn(result.data.user));
 };
+
+export const EditLoggedInUser = (params) => async (dispatch) => {
+	console.log("parammm", params);
+	const result = await axios.put(`/users/${params.userId}`, params);
+	console.log("vvvv", result.data.updatedUser);
+
+	dispatch(editUser(result.data.updatedUser));
+};
 const initialState = {
 	user: { token: "" },
 	userLoggedIn: {},
+	editedUser: {},
 };
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
@@ -63,6 +74,12 @@ export default function reducer(state = initialState, action) {
 			return {
 				...state,
 				userLoggedIn: action.userLoggedIn,
+			};
+		}
+		case EDIT_USER: {
+			return {
+				...state,
+				editedUser: action.editedUser,
 			};
 		}
 
