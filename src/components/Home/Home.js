@@ -8,7 +8,7 @@ import {
 	EditLoggedInUser,
 } from "../../reducers/authentication";
 import "./Home.css";
-import { Layout, Menu, Card, Modal } from "antd";
+import { Layout, Menu, Card, Modal, Popover } from "antd";
 import {
 	DesktopOutlined,
 	UserOutlined,
@@ -66,70 +66,64 @@ function Home() {
 		setVisibleEditProfile(false);
 	};
 
-	// //////////
 	const onCollapse = (collapsed) => {
 		this.setState({ collapsed });
 	};
 
-	const onShowProfileModal = (userId) => () => {
+	const onShowProfileModal = () => {
 		dispatch(getUserProfile({ userId }));
-		setVisible(userId);
+		setVisible(true);
 	};
 	const onCancel = () => {
 		setVisible(false);
 	};
 	return (
 		<>
-			<Modal visible={visible} onCancel={onCancel}>
-				<p>Update your profile</p>
-				{user && (
-					<Card
-						hoverable
-						style={{ width: 240 }}
-						cover={
-							user.imageUrl ? (
-								<img alt="example" src={user.imageUrl} />
-							) : (
-								<img alt="example" src={imageUrlDefault} />
-							)
-						}
-					>
-						<Meta title={user.username} />
-					</Card>
-				)}
-			</Modal>
 			<Modal
 				visible={visibleEditProfile}
 				onCancel={onCancelEditProfileModal}
 				onOk={onEditUser}
+				className="editUserModal"
 			>
-				<p>hhh</p>
+				<p>Update your profile</p>
 				{user && (
 					<Card
 						hoverable
-						style={{ width: 240 }}
+						className="cardEditProfile"
 						cover={
 							user.imageUrl ? (
-								<img alt="example" src={user.imageUrl} />
+								<img
+									alt="example"
+									src={user.imageUrl}
+									style={{ width: "100%", height: 500, objectFit: "cover" }}
+								/>
 							) : (
-								<img alt="example" src={imageUrlDefault} />
+								<img
+									alt="example"
+									src={imageUrlDefault}
+									style={{ width: "100%", height: 500, objectFit: "cover" }}
+								/>
 							)
 						}
 					>
 						<>
 							<input
-								placeholder={userEdited.username}
+								type="text"
+								placeholder="Your username"
 								value={userEdited.username}
 								name="username"
 								onChange={updateUserEditInput}
+								className="editInput "
 							/>
-							<br />
-
 							<div className="flex justify-around">
-								<label style={{ fontSize: "20px", marginLeft: "80%" }}>
-									<span>
-										<PictureOutlined />
-									</span>
+								<label>
+									<div>
+										Update new image profile{" "}
+										<span>
+											<PictureOutlined />
+										</span>
+									</div>
+
 									<input
 										name="imageUrl"
 										type="file"
@@ -157,7 +151,38 @@ function Home() {
 							<Menu.Item key="3">Followers</Menu.Item>
 							<Menu.Item key="4">Followings</Menu.Item>
 							<Menu.Item key="5">
-								<div onClick={onShowProfileModal(userId)}>About</div>
+								<Popover
+									content={
+										user && (
+											<Card
+												hoverable
+												style={{ width: 240 }}
+												cover={
+													user.imageUrl ? (
+														<img alt="example" src={user.imageUrl} />
+													) : (
+														<img alt="example" src={imageUrlDefault} />
+													)
+												}
+											>
+												<div>
+													User Name <strong>{user.username}</strong>
+												</div>
+												<div>
+													Email <strong>{user.email}</strong>
+												</div>
+
+												<a onClick={onCancel}>Close</a>
+											</Card>
+										)
+									}
+									title=""
+									trigger="click"
+									visible={visible}
+									onVisibleChange={onShowProfileModal}
+								>
+									<div>About</div>
+								</Popover>
 							</Menu.Item>
 							<Menu.Item key="6">
 								<div onClick={onShowEditProfileModal(userId)}>Update</div>
