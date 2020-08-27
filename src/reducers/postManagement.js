@@ -20,8 +20,6 @@ export const displayAPost = (currentPost) => ({
 export const createAPost = (post) => ({ type: CREATE_NEW_POST, post });
 export const LikePost = (params) => async (dispatch) => {
 	const result = await axios.post(`/likes/${params.id}`, { ...params });
-	// console.log("result", result.data);
-
 	dispatch(likeApost(result.data.like));
 };
 export const LikeComment = (params) => async (dispatch) => {
@@ -31,8 +29,6 @@ export const LikeComment = (params) => async (dispatch) => {
 			...params,
 		}
 	);
-	console.log("FFF", result.data);
-
 	dispatch(likeAComment(result.data.like_comment));
 };
 export const deleteAPost = (post) => ({ type: DELETE_A_POST, post });

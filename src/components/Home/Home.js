@@ -85,7 +85,7 @@ function Home() {
 				onOk={onEditUser}
 				className="editUserModal"
 			>
-				<p>Update your profile</p>
+				<p className="updateTitle">Update your profile</p>
 				{user && (
 					<Card
 						hoverable
@@ -117,9 +117,9 @@ function Home() {
 							/>
 							<div className="flex justify-around">
 								<label>
-									<div>
-										Update new image profile{" "}
-										<span>
+									<div style={{ padding: 10 }}>
+										<span>Click the Icon to update new image profile</span>
+										<span className="updateProfileIcon">
 											<PictureOutlined />
 										</span>
 									</div>

@@ -38,10 +38,7 @@ export const getUserProfile = (params) => async (dispatch) => {
 };
 
 export const EditLoggedInUser = (params) => async (dispatch) => {
-	console.log("parammm", params);
 	const result = await axios.put(`/users/${params.userId}`, params);
-	console.log("vvvv", result.data.updatedUser);
-
 	dispatch(editUser(result.data.updatedUser));
 };
 const initialState = {

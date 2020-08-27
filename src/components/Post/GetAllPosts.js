@@ -31,6 +31,8 @@ const imageUrlDefault =
 	"http://sarangglobaltours.com/wp-content/uploads/2014/02/team.png";
 function GetAllPosts(props) {
 	const [collapse, setCollapse] = useState(null);
+	const editedUser = useSelector((state) => state.authentication.editedUser);
+	console.log("vvvv", editedUser);
 	const posts = useSelector((state) => state.postManagement.posts);
 	const user_Id = useSelector((state) => state.authentication.user.id);
 	const [visible, setVisible] = useState(false);
@@ -134,21 +136,32 @@ function GetAllPosts(props) {
 											span={12}
 											style={{ display: "flex", justifyContent: "flex-start" }}
 										>
-											{!post.User.imageUrl ? (
-												<img
-													src="https://www.pngkey.com/png/detail/52-522921_kathrine-vangen-profile-pic-empty-png.png"
-													className="headerCardAvatar"
-												/>
+											{editedUser.id === post.userId && editedUser ? (
+												(
+													<img
+														src={editedUser.imageUrl}
+														className="headerCardAvatar"
+													/>
+												) || (
+													<img
+														src={post.User.imageUrl}
+														className="headerCardAvatar"
+													/>
+												)
 											) : (
 												<img
-													src={post.User.imageUrl}
+													src="https://www.pngkey.com/png/detail/52-522921_kathrine-vangen-profile-pic-empty-png.png"
 													className="headerCardAvatar"
 												/>
 											)}
 											<div className="headerCardInfo">
 												<Link to={`/users/${post.userId}`}>
 													<p style={{ fontSize: 16 }}>
-														<strong>{post.User.username}</strong>
+														{editedUser && post.userId === editedUser.id ? (
+															<strong>{editedUser.username}</strong>
+														) : (
+															<strong>{post.User.username}</strong>
+														)}
 													</p>
 												</Link>
 												<p>
