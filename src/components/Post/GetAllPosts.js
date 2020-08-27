@@ -136,18 +136,11 @@ function GetAllPosts(props) {
 											span={12}
 											style={{ display: "flex", justifyContent: "flex-start" }}
 										>
-											{editedUser.id === post.userId && editedUser ? (
-												(
-													<img
-														src={editedUser.imageUrl}
-														className="headerCardAvatar"
-													/>
-												) || (
-													<img
-														src={post.User.imageUrl}
-														className="headerCardAvatar"
-													/>
-												)
+											{post.User.imageUrl ? (
+												<img
+													src={post.User.imageUrl}
+													className="headerCardAvatar"
+												/>
 											) : (
 												<img
 													src="https://www.pngkey.com/png/detail/52-522921_kathrine-vangen-profile-pic-empty-png.png"
