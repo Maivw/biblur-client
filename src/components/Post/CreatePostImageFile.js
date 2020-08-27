@@ -67,7 +67,7 @@ function CreatePostImageFile({ visible, onCancel }) {
 				</Row>
 				<div className="flex justify-around">
 					<label style={{ fontSize: "20px", marginLeft: "80%" }}>
-						<span>
+						<span className="createPostInputIcon">
 							<PictureOutlined />
 						</span>
 						<input

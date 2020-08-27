@@ -31,7 +31,7 @@
 
 .inputRender {
 	max-height: 540px;
-	object-fit: cover;
+	object-fit: contain;
 	width: 80%;
 	padding: 15px;
 }
@@ -47,4 +47,8 @@
 	padding: 10;
 	color: #434343;
 	margin-top: 10px;
+}
+
+.createPostInputIcon {
+	color: #112a45;
 }
