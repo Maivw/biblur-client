@@ -10,7 +10,6 @@ const api = create({
 	timeout: 60000,
 });
 
-// Add a request interceptor
 api.interceptors.request.use((config) => {
 	const state = store.getState();
 	console.log("state", state);
@@ -19,7 +18,6 @@ api.interceptors.request.use((config) => {
 		...config,
 		headers: { ...config.headers, Authorization: `Bearer ${token}` },
 	};
-	// return { ...config };
 });
 
 // Add a response interceptor
