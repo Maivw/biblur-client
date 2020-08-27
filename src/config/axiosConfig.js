@@ -2,7 +2,7 @@ import { create } from "axios";
 import { store } from "../index";
 
 const api = create({
-	baseURL: "https://biblur-back.herokuapp.com/",
+	baseURL: "https://biblur-back.herokuapp.com",
 	headers: {
 		Accept: "application/json",
 		"Content-Type": "application/json",
