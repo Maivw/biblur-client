@@ -1,9 +1,10 @@
 import { create } from "axios";
 import { store } from "../index";
+import { baseUrl } from "../config";
 
 const api = create({
-	baseURL: "https://biblur-back.herokuapp.com",
-	// baseURL: "http://localhost:8080",
+	//baseURL: "https://biblur-back.herokuapp.com",
+	baseURL: baseUrl,
 	headers: {
 		Accept: "application/json",
 		"Content-Type": "application/json",

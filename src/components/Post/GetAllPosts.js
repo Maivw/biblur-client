@@ -34,6 +34,7 @@ function GetAllPosts(props) {
 	const editedUser = useSelector((state) => state.authentication.editedUser);
 	console.log("vvvv", editedUser);
 	const posts = useSelector((state) => state.postManagement.posts);
+	console.log("fgfgfggf", posts);
 	const user_Id = useSelector((state) => state.authentication.user.id);
 	const [visible, setVisible] = useState(false);
 	const [visibleImageUrl, setVisibleImageUrl] = useState(false);
