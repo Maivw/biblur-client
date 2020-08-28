@@ -32,9 +32,8 @@ const imageUrlDefault =
 function GetAllPosts(props) {
 	const [collapse, setCollapse] = useState(null);
 	const editedUser = useSelector((state) => state.authentication.editedUser);
-	console.log("vvvv", editedUser);
 	const posts = useSelector((state) => state.postManagement.posts);
-	console.log("fgfgfggf", posts);
+	const token = useSelector((state) => state.authentication.token);
 	const user_Id = useSelector((state) => state.authentication.user.id);
 	const [visible, setVisible] = useState(false);
 	const [visibleImageUrl, setVisibleImageUrl] = useState(false);
@@ -83,6 +82,10 @@ function GetAllPosts(props) {
 	const onCollapse = (postId) => () => {
 		collapse ? setCollapse(null) : setCollapse(postId);
 	};
+
+	if (!token) {
+		return <Redirect to="/login" />;
+	}
 	return (
 		<div className="app-container">
 			<CreatePostImageFile visible={visible} onCancel={onCancel} />
