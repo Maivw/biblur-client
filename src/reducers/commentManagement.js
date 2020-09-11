@@ -54,14 +54,6 @@ export const EditAComment = (params) => async (dispatch) => {
 	dispatch(editComment(result.data.comment));
 };
 
-// export const GetAComment = (params) => async (dispatch) => {
-// 	const result = await axios.get(`/comments/${params.postId}/${params.id}`, {
-// 		...params,
-// 	});
-
-// 	dispatch(displayComment(result.data.comment));
-// };
-
 const initialState = {
 	comments: [],
 };

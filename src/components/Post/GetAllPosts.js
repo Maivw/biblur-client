@@ -130,6 +130,7 @@ function GetAllPosts(props) {
 					posts.map((post, index) => {
 						const likes = post.Likes;
 						const love = post.Likes.filter((l) => l.userId === user_Id)[0];
+
 						const l = post.Likes.filter((like) => !like.commentId).length;
 
 						return (
@@ -140,7 +141,7 @@ function GetAllPosts(props) {
 											span={12}
 											style={{ display: "flex", justifyContent: "flex-start" }}
 										>
-											{post.User.imageUrl ? (
+											{post && post.User && post.User.imageUrl ? (
 												<img
 													src={post.User.imageUrl}
 													className="headerCardAvatar"

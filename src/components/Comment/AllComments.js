@@ -21,6 +21,7 @@ export default function AllComments(props) {
 	const dispatch = useDispatch();
 	const user_Id = useSelector((state) => state.authentication.user.id);
 	const comments = useSelector((state) => state.commentManagement.comments);
+	const posts = useSelector((state) => state.postManagement.posts);
 	const { postId, isOpened } = props;
 	const [visibleShowmore, setVisibleShowmore] = useState(false);
 	const [loveC, setLoveC] = useState(null);
@@ -57,83 +58,104 @@ export default function AllComments(props) {
 				style={{ marginTop: 20 }}
 			>
 				{comments &&
-					comments.map((comment) => (
-						<Row key={comment.id}>
-							<Col xl={3} md={3} xs={3}>
-								{comment.User.imageUrl ? (
-									<img
-										src={comment.User.imageUrl}
-										alt={comment.User.username}
-										className="commentAvatar"
-									/>
-								) : (
-									<img
-										src={imageUrlDefault}
-										alt="avatar"
-										className="commentAvatar"
-									/>
-								)}
-							</Col>
-							<Col className="commentContent" xl={19} md={19} xs={19}>
-								<Row>
-									<Col xl={22} md={22} xs={22}>
-										{comment.commentContent}
-									</Col>
-									<Col xl={1} md={1} xs={1} className="commentInputIcon">
-										<HeartFilled
-											onClick={onLikeComment(comment.id, postId, user_Id)}
-											style={{ color: loveC === comment.id ? "red" : "black" }}
+					comments.map((comment) => {
+						return (
+							<Row key={comment.id}>
+								<Col xl={3} md={3} xs={3}>
+									{comment.User.imageUrl ? (
+										<img
+											src={comment.User.imageUrl}
+											alt={comment.User.username}
+											className="commentAvatar"
 										/>
-									</Col>
-									<Col xl={1} md={1} xs={1} className="commentInputIcon">
-										<div className="popover">
-											<Popover
-												content={
-													<div>
-														<EditSingleComment
-															postId={postId}
-															commentId={comment.id}
-														/>
-														<div
+									) : (
+										<img
+											src={imageUrlDefault}
+											alt="avatar"
+											className="commentAvatar"
+										/>
+									)}
+								</Col>
+								<Col className="commentContent" xl={19} md={19} xs={19}>
+									<Row>
+										<Col xl={22} md={22} xs={22}>
+											{comment.commentContent}
+										</Col>
+										<Col xl={1} md={1} xs={1} className="commentInputIcon">
+											{posts &&
+												posts.map((post) => {
+													const likes = post.Likes;
+													console.log("lll", likes);
+													return (
+														<HeartFilled
+															onClick={onLikeComment(
+																comment.id,
+																post.id,
+																user_Id
+															)}
 															style={{
-																display: "flex",
-																justifyContent: "space-between",
-																marginTop: 10,
+																color: loveC === comment.id ? "red" : "black",
 															}}
-														>
-															<DeleteSingleComment
+														/>
+													);
+												})}
+											{/* <HeartFilled
+												onClick={onLikeComment(comment.id, postId, user_Id)}
+												style={{
+													color: loveC === comment.id ? "red" : "black",
+												}}
+											/> */}
+										</Col>
+										<Col xl={1} md={1} xs={1} className="commentInputIcon">
+											<div className="popover">
+												<Popover
+													content={
+														<div>
+															<EditSingleComment
 																postId={postId}
 																commentId={comment.id}
 															/>
-															<p
-																onClick={closeShowmore}
-																style={{ marginLeft: 15, color: "#8c8c8c" }}
+															<div
+																style={{
+																	display: "flex",
+																	justifyContent: "space-between",
+																	marginTop: 10,
+																}}
 															>
-																Close
-															</p>
+																<DeleteSingleComment
+																	postId={postId}
+																	commentId={comment.id}
+																/>
+																<p
+																	onClick={closeShowmore}
+																	style={{ marginLeft: 15, color: "#8c8c8c" }}
+																>
+																	Close
+																</p>
+															</div>
 														</div>
-													</div>
-												}
-												title=""
-												trigger="click"
-												visible={visibleShowmore === comment.id}
-												className="popover"
-											></Popover>
-										</div>
+													}
+													title=""
+													trigger="click"
+													visible={visibleShowmore === comment.id}
+													className="popover"
+												></Popover>
+											</div>
 
-										<MoreOutlined
-											style={{
-												display: "flex",
-												justifyContent: "flex-end",
-												marginTop: -10,
-											}}
-											onClick={onShowMore(comment.id)}
-										/>
-									</Col>
-								</Row>
-							</Col>
-						</Row>
-					))}
+											<MoreOutlined
+												style={{
+													display: "flex",
+													justifyContent: "flex-end",
+													marginTop: -10,
+												}}
+												onClick={onShowMore(comment.id)}
+											/>
+										</Col>
+									</Row>
+								</Col>
+							</Row>
+						);
+					})}
 				<Row xl={24} md={24} xs={24}>
 					<Col xl={3} md={3} xs={3}></Col>
 					<Col xl={19} md={19} xs={19}>
