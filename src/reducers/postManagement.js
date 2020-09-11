@@ -29,7 +29,8 @@ export const LikeComment = (params) => async (dispatch) => {
 			...params,
 		}
 	);
-	dispatch(likeAComment(result.data.like_comment));
+
+	dispatch(likeAComment(result.data.likeComment));
 };
 export const deleteAPost = (post) => ({ type: DELETE_A_POST, post });
 export const editAPost = (post) => ({ type: EDIT_A_POST, post });
@@ -63,7 +64,7 @@ export const removeAPost = (params) => async (dispatch) => {
 	const result = await axios.delete(`/posts/${params.id}`, params);
 	dispatch(deleteAPost(result.data));
 };
-const initialState = { posts: [] };
+const initialState = { posts: [], Posts: [] };
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case DISPLAY_ALL_POSTS: {
@@ -125,12 +126,12 @@ export default function reducer(state = initialState, action) {
 		}
 
 		case LIKE_A_COMMENT: {
-			console.log("aaa", action.likecomment);
+			console.log("wwwww", action.likecomment);
 			let newState = [...state.posts];
 			console.log("newState", newState);
 
 			//find currentPost index
-			const currentPostIndex = newState.findIndex(
+			let currentPostIndex = newState.findIndex(
 				(post) => post.id === action.likecomment.postId
 			);
 
@@ -149,7 +150,7 @@ export default function reducer(state = initialState, action) {
 			}
 			return {
 				...state,
-				posts: [...newState],
+				Posts: [...newState],
 			};
 		}
 

@@ -9,6 +9,7 @@ import CreateAComment from "./CreateAComment";
 import DeleteSingleComment from "./DeleteAComment";
 import EditSingleComment from "./EditSingleComment";
 import "./AllComment.css";
+import _ from "lodash";
 
 const imageUrlDefault =
 	"http://sarangglobaltours.com/wp-content/uploads/2014/02/team.png";
@@ -21,10 +22,9 @@ export default function AllComments(props) {
 	const dispatch = useDispatch();
 	const user_Id = useSelector((state) => state.authentication.user.id);
 	const comments = useSelector((state) => state.commentManagement.comments);
-	const posts = useSelector((state) => state.postManagement.posts);
+	const posts = useSelector((state) => state.postManagement.Posts);
 	const { postId, isOpened } = props;
 	const [visibleShowmore, setVisibleShowmore] = useState(false);
-	const [loveC, setLoveC] = useState(null);
 
 	useEffect(() => {
 		if (postId === isOpened) {
@@ -43,11 +43,6 @@ export default function AllComments(props) {
 	};
 	const onLikeComment = (commentId, postId, user_Id) => () => {
 		dispatch(LikeComment({ commentId, postId, user_Id }));
-		if (!loveC) {
-			setLoveC(commentId);
-		} else {
-			setLoveC(null);
-		}
 	};
 
 	return (
@@ -59,6 +54,10 @@ export default function AllComments(props) {
 			>
 				{comments &&
 					comments.map((comment) => {
+						const currentPost = posts.find((e) => e.id === comment.postId);
+						const isLiked = _.get(currentPost, "Likes", []).find(
+							(e) => e.commentId === comment.id
+						);
 						return (
 							<Row key={comment.id}>
 								<Col xl={3} md={3} xs={3}>
@@ -82,29 +81,12 @@ export default function AllComments(props) {
 											{comment.commentContent}
 										</Col>
 										<Col xl={1} md={1} xs={1} className="commentInputIcon">
-											{posts &&
-												posts.map((post) => {
-													const likes = post.Likes;
-													console.log("lll", likes);
-													return (
-														<HeartFilled
-															onClick={onLikeComment(
-																comment.id,
-																post.id,
-																user_Id
-															)}
-															style={{
-																color: loveC === comment.id ? "red" : "black",
-															}}
-														/>
-													);
-												})}
-											{/* <HeartFilled
+											<HeartFilled
 												onClick={onLikeComment(comment.id, postId, user_Id)}
 												style={{
-													color: loveC === comment.id ? "red" : "black",
+													color: isLiked ? "red" : "black",
 												}}
-											/> */}
+											/>
 										</Col>
 										<Col xl={1} md={1} xs={1} className="commentInputIcon">
 											<div className="popover">

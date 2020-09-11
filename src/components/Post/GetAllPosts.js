@@ -130,6 +130,7 @@ function GetAllPosts(props) {
 					posts.map((post, index) => {
 						const likes = post.Likes;
 						const love = post.Likes.filter((l) => l.userId === user_Id)[0];
+						console.log("love", love);
 
 						const l = post.Likes.filter((like) => !like.commentId).length;
 
