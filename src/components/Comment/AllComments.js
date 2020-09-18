@@ -102,6 +102,7 @@ export default function AllComments(props) {
 																	display: "flex",
 																	justifyContent: "space-between",
 																	marginTop: 10,
+																	color: "yellow",
 																}}
 															>
 																<DeleteSingleComment
